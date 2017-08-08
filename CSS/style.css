@@ -3,4 +3,5 @@
   border-radius: 10px;
   padding: 20px 20px 20px 20px;
   height: 50%;
+  overflow: auto
 }
