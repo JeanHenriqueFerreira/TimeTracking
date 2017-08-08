@@ -4,12 +4,13 @@
     <meta charset="UTF-8">
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
     
+    <script src="JS/index.js"></script>
+    
     <link rel="stylesheet" href="CSS/style.css">
   </head>
 
-  <body>
-    <div class="container"
-         ng-app="">
+  <body ng-app="myTimeTracking">
+    <div class="container">
       <p>Name: <input type="text" ng-model="name"></p>
       <p ng-bind="name"></p>
      </div>
