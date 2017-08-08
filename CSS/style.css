@@ -5,3 +5,8 @@
   height: 40%;
   overflow: auto
 }
+
+.header-card {
+  border: solid 1px;
+  border-radius: 5px;
+}
