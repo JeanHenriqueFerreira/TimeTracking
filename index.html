@@ -12,8 +12,8 @@
   <body ng-app="myTimeTracking"
         ng-controller="MainCtr">
     <div class="container">
-      <div class="container">
-        <p>Teste</p>
+      <div class="header-card">
+        <p>Pendentes</p>
       </div>  
       <p>Name: <input type="text" ng-model="name"></p>
       <p ng-bind="hello"></p>
@@ -21,10 +21,9 @@
       {{hello}}
     </div>
     <div class="container">
-      <p>Name: <input type="text" ng-model="name"></p>
-      <p ng-bind="hello"></p>
-      <p ng-bind="name"></p>
-      {{hello}}
+      <div class="header-card">
+        <p>Registrados</p>
+      </div>
     </div>
   </body>
 </html>
