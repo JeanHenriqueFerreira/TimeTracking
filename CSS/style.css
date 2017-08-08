@@ -1,9 +1,7 @@
 .container-div {
-  border: solid 1px;
-  border-radius: 5px;
   padding: 2px 2px 2px 20px;
-  height: 40%;
-  overflow: auto
+  height: 100%;
+  overflow: auto;
 }
 
 .header-card {
@@ -39,8 +37,8 @@ button:hover {
 }
 
 #container {
-    width: 330px;
-    height: 508px;
+    width: 40%;
+    height: 50%;
     max-width: 330px;
     background: white;
     position: relative;
