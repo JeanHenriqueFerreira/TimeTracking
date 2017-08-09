@@ -2,6 +2,10 @@ table {
   width: 100%;
 }
 
+table input{
+  width: 100%
+}
+
 .container-div {
   padding: 2px 2px 2px 20px;
   height: 100%;
