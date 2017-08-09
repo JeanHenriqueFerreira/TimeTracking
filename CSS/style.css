@@ -37,27 +37,27 @@ button:hover {
 }
 
 .container {
-    width: 40%;
-    height: 50%;
-    max-width: 330px;
     background: white;
-    position: relative;
-    top: 50%;
-    left: 50%;
-    overflow: hidden;
+    overflow: auto;
     box-shadow: 0 5px 15px 0 rgba(0,0,0,0.25);
-    transform: translate3d(-50%, -50%, 0);
     border-radius: 5px;
 }
 
 h2 {
     padding: 20px;
     color: white;
-    background: #3E4FB2;
     font-weight: 300;
     text-align: center;
     font-size: 18px;
-  font-family: 'Roboto', sans-serif;
+    font-family: 'Roboto', sans-serif;
+}
+
+.red {
+  background: #FF0000;
+}
+
+.blue {
+  background: #3E4FB2;
 }
 
 .detail {
