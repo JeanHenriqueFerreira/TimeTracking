@@ -16,7 +16,7 @@ html {
 }
 
 body {
-    background: url("background.jpg") no-repeat center center/cover #F9D8AD;
+    background: url("background.jpg") no-repeat center center/cover rgb(226, 226, 226);
     height: 100%;
 }
 
