@@ -24,7 +24,7 @@ html {
 }
 
 body {
-    background: url("background.jpg") no-repeat center center/cover #EEEEEE;
+    background: url("../background.jpg") no-repeat center center/cover #EEEEEE;
     height: 100%;
 }
 
