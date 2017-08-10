@@ -6,6 +6,11 @@ table input{
   width: 100%
 }
 
+h2 i{
+  padding: 3px 0px 0px 3px;
+  text-align: left;
+}
+
 .container-div {
   padding: 2px 2px 2px 20px;
   height: 100%;
