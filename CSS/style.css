@@ -6,9 +6,9 @@ table input{
   width: 100%
 }
 
-h2 i{
+.icon-left-white{
   padding: 3px 0px 0px 3px;
-  text-align: left;
+  text-size: 30;
 }
 
 .container-div {
