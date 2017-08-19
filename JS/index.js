@@ -1,6 +1,7 @@
 var myTimeTracking = angular.module('myTimeTracking', []);
 
 myTimeTracking.controller('MainCtr', ['$scope', '$interval', function($scope, $interval) {
+  var timer;
 
   function init() {
     $scope.headers = {
@@ -10,8 +11,7 @@ myTimeTracking.controller('MainCtr', ['$scope', '$interval', function($scope, $i
     $scope.cadastro = {
       intensRegistrados: [],
       itensPendentes: [],
-      itemEmContagem: -1,
-      timer: {}
+      itemEmContagem: -1
     };
 
     $scope.addItemPendente = addItemPendente;
@@ -35,9 +35,9 @@ myTimeTracking.controller('MainCtr', ['$scope', '$interval', function($scope, $i
   }
 
   function destruirInterval() {
-    if (angular.isDefined($scope.cadastro.timer)) {
-      $interval.cancel($scope.cadastro.timer);
-      $scope.cadastro.timer = undefined;
+    if (angular.isDefined(timer)) {
+      $interval.cancel(timer);
+      timer = undefined;
     }
   }
 
@@ -45,18 +45,18 @@ myTimeTracking.controller('MainCtr', ['$scope', '$interval', function($scope, $i
     if ($scope.cadastro.itemEmContagem !== -1) {
       $scope.cadastro.itensPendentes[$scope.cadastro.itemEmContagem].tempo += 1;
     } else {
-      $scope.destruirInterval();
+      destruirInterval();
     }
   }
 
   $scope.$on('$destroy', function() {
-    $scope.destruirInterval();
+    destruirInterval();
   });
 
   function pausarContador() {
     $scope.cadastro.itensPendentes[$scope.cadastro.itemEmContagem].selecionado = false;
     $scope.cadastro.itemEmContagem = -1;
-    $scope.destruirInterval();
+    destruirInterval();
   }
 
   function removerItemPendente(item) {
@@ -72,13 +72,15 @@ myTimeTracking.controller('MainCtr', ['$scope', '$interval', function($scope, $i
     }
     $scope.cadastro.itensPendentes[item].selecionado = true;
     $scope.cadastro.itemEmContagem = item;
-    $scope.cadastro.timer = $interval(somarUmSegundo, 1000);
+    if (timer === undefined) {
+      timer = $interval(somarUmSegundo, 1000);
+    }
   }
 
   function removerAllPendentes() {
     $scope.cadastro.itensPendentes = [];
     $scope.cadastro.itemEmContagem = -1;
-    $scope.destruirInterval();
+    destruirInterval();
   };
 
   function editTime(item) {
