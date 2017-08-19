@@ -1,6 +1,6 @@
 var myTimeTracking = angular.module('myTimeTracking', []);
 
-myTimeTracking.controller('MainCtr', ['$scope', function($scope) {
+myTimeTracking.controller('MainCtr', ['$scope', '$interval', function($scope, $interval) {
 
   function init() {
     $scope.headers = {
@@ -9,30 +9,82 @@ myTimeTracking.controller('MainCtr', ['$scope', function($scope) {
 
     $scope.cadastro = {
       intensRegistrados: [],
-      itensPendentes: []
+      itensPendentes: [],
+      itemEmContagem: -1,
+      timer: {}
     };
+
+    $scope.addItemPendente = addItemPendente;
+    $scope.removerAllPendentes = removerAllPendentes;
+    $scope.removerItemPendente = removerItemPendente;
+    $scope.iniciarContagem = iniciarContagem;
+    $scope.pausarContador = pausarContador;
+    $scope.destruirInterval = destruirInterval;
   }
 
-  function addItem() {
+  function addItemPendente() {
     $scope.cadastro.itensPendentes.push({
       trf_codigo: "",
       prot_codig: "",
       anot_descricao: "",
       tptrf_codigo: "",
-      anot_tempo: ""
+      anot_tempo: "",
+      tempo: 0,
+      selecionado: false
     });
   }
 
-  function removeItem(item) {
-
+  function destruirInterval() {
+    if (angular.isDefined($scope.cadastro.timer)) {
+      $interval.cancel($scope.cadastro.timer);
+      $scope.cadastro.timer = undefined;
+    }
   }
+
+  function somarUmSegundo() {
+    if ($scope.cadastro.itemEmContagem !== -1) {
+      $scope.cadastro.itensPendentes[$scope.cadastro.itemEmContagem].tempo += 1;
+    } else {
+      $scope.destruirInterval();
+    }
+  }
+
+  $scope.$on('$destroy', function() {
+    $scope.destruirInterval();
+  });
+
+  function pausarContador() {
+    $scope.cadastro.itensPendentes[$scope.cadastro.itemEmContagem].selecionado = false;
+    $scope.cadastro.itemEmContagem = -1;
+    $scope.destruirInterval();
+  }
+
+  function removerItemPendente(item) {
+    if ($scope.cadastro.itemEmContagem === item) {
+      $scope.cadastro.itemEmContagem = -1;
+    }
+    $scope.cadastro.itensPendentes.splice(item, 1);
+  }
+
+  function iniciarContagem(item) {
+    for (var i = 0; i < $scope.cadastro.itensPendentes.length; i++) {
+      $scope.cadastro.itensPendentes[i].selecionado = false;
+    }
+    $scope.cadastro.itensPendentes[item].selecionado = true;
+    $scope.cadastro.itemEmContagem = item;
+    $scope.cadastro.timer = $interval(somarUmSegundo, 1000);
+  }
+
+  function removerAllPendentes() {
+    $scope.cadastro.itensPendentes = [];
+    $scope.cadastro.itemEmContagem = -1;
+    $scope.destruirInterval();
+  };
 
   function editTime(item) {
 
   }
 
-  $scope.addItem = addItem;
-
-
   init();
+
 }]);
