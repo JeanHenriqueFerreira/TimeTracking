@@ -24,7 +24,7 @@ table input {
   text-align: right;
 }
 
-input[type="text"]:disabled {
+table tr td input[type="text"]:disabled {
   background: #686868;
   cursor: "not-allowed" !important;
   color: white;
