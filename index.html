@@ -26,6 +26,7 @@
         <i class="material-icons icon-left-white" ng-click="addItemPendente()">add</i>
         <i class="material-icons icon-left-white" ng-click="removerAllPendentes()">delete_forever</i>
         <i class="material-icons icon-left-white">send</i>
+        <i class="material-icons" ng-click="salvarTodos()">check</i>
       </h2>
 
       <table ng-if="cadastro.itensPendentes.length">
@@ -43,15 +44,16 @@
             <i class="material-icons" ng-show="item.selecionado" ng-click="pausarContador()">pause</i>
             <i class="material-icons">send</i>
           </td>
-          <td><input type="text " ng-model="item.tempo"></td>
-          <td><input type="text " ng-model="item.prot_codigo"></td>
-          <td><input type="text " ng-model="item.trf_codigo"></td>
-          <td><input type="text " ng-model="item.trf_descricao "></td>
+          <td><input type="text" ng-model="item.tempoFormatado"></td>
+          <td><input type="text" ng-model="item.prot_codigo" ng-disabled="!item.editando"></td>
+          <td><input type="text" ng-model="item.trf_codigo" ng-disabled="!item.editando"></td>
+          <td><input type="text" ng-model="item.trf_descricao" ng-disabled="!item.editando"></td>
           <td>
-            <i class="material-icons ">mode_edit</i>
-            <i class="material-icons " ng-click="removerItemPendente($index)">delete</i>
-            <i class="material-icons ">settings</i>
-            <i class="material-icons ">compare_arrows</i>
+            <i class="material-icons" ng-show="!item.editando" ng-click="editarItem($index)">mode_edit</i>
+            <i class="material-icons" ng-show="item.editando" ng-click="salvarItem($index)">check</i>
+            <i class="material-icons" ng-click="removerItemPendente($index)">delete</i>
+            <i class="material-icons">settings</i>
+            <i class="material-icons">compare_arrows</i>
           </td>
         </tr>
       </table>

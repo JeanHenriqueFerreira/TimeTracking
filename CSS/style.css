@@ -24,7 +24,17 @@ table input {
   text-align: right;
 }
 
+input[type="text"]:disabled {
+  background: #686868;
+  cursor: "not-allowed" !important;
+  color: white;
+}
+
 .conteiner-icons-big {}
+
+i {
+  cursor: pointer;
+}
 
 .icon-left-white {
   padding: 3px 0px 0px 3px;
@@ -78,6 +88,7 @@ button:hover {
 }
 
 h2 {
+  cursor: default;
   padding: 20px;
   margin: 3px;
   color: white;
@@ -85,6 +96,7 @@ h2 {
   text-align: center;
   font-size: 18px;
   font-family: 'Roboto', sans-serif;
+  border-radius: 5px;
 }
 
 .red {
