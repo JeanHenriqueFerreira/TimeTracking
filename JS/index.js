@@ -165,7 +165,7 @@ myTimeTracking.controller('MainCtr', ['$scope', '$interval', '$http',
     function removerAllRegistrados() {
       for (var i = 0; i < $scope.cadastro.itensRegistrados.length; i++) {
         $scope.cadastro.faltanteParaHoras.tempo += $scope.cadastro.itensRegistrados[i].tempo;
-        $scope.cadastro.totalRegistrado.tempo -= $scope.cadastro.itensPendentes[i].tempo;
+        $scope.cadastro.totalRegistrado.tempo -= $scope.cadastro.itensRegistrados[i].tempo;
       }
       $scope.cadastro.itensRegistrados = [];
 
