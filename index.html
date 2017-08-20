@@ -29,7 +29,7 @@
         <div class="hundred-percent">
           <div class="float-right">
             <i class="material-icons icon-left-white" ng-click="removerAllPendentes()" title="Remover todos os itens pendentes">delete_forever</i>
-            <i class="material-icons icon-left-white" title="Registrar todos">send</i>
+            <i class="material-icons icon-left-white" ng-click="registrarTodos()" title="Registrar todos">send</i>
             <i class="material-icons icon-left-white" ng-click="salvarTodos()" ng-show="cadastro.existeEditando" title="Salvar todos">check</i>
             <i class="material-icons icon-left-white" ng-click="addItemPendente()" title="Adicionar item pendente">add</i>
           </div>
@@ -87,31 +87,23 @@
       <table ng-if="cadastro.itensRegistrados.length">
         <thead>
           <tr>
-            <th></th>
             <th>Tempo</th>
             <th>Protocolo</th>
             <th>Tarefa</th>
             <th>Descrição</th>
-            <th></th>
+            <th ng-if="false"></th>
           </tr>
         </thead>
         <tbody>
           <tr ng-repeat=" item in cadastro.itensRegistrados ">
-            <td>
-              <i class="material-icons" ng-show="!item.selecionado" ng-click="iniciarContagem($index)">play_arrow</i>
-              <i class="material-icons" ng-show="item.selecionado" ng-click="pausarContador()">pause</i>
-            </td>
             <td><input type="text" ng-model="item.tempoFormatado" ng-disabled="true"></td>
             <td><input type="text" ng-model="item.prot_codigo" ng-disabled="!item.editando"></td>
             <td><input type="text" ng-model="item.trf_codigo" ng-disabled="!item.editando"></td>
             <td><input type="text" ng-model="item.trf_descricao" ng-disabled="!item.editando"></td>
-            <td>
-              <i class="material-icons" ng-show="!item.editando" ng-click="editarItem($index)" title="Editar item pendente">mode_edit</i>
-              <i class="material-icons" ng-show="item.editando" ng-click="salvarItem($index)" title="Salvar item pendente">check</i>
-              <i class="material-icons" ng-click="removerItemPendente($index)" title="Remover item pendente">delete</i>
-              <i class="material-icons" title="Alterar tempo" ng-if="false">settings</i>
-              <i class="material-icons" title="Atribuir tempo em outro item">compare_arrows</i>
-              <i class="material-icons" title="Enviar para registrados" ng-click="enviarPendenteParaRegistrado($index)">send</i>
+            <td ng-if="false">
+              <i class="material-icons" ng-show="!item.editando" ng-click="editarItem($index)" title="Editar item registrado">mode_edit</i>
+              <i class="material-icons" ng-show="item.editando" ng-click="salvarItem($index)" title="Salvar item registradov">check</i>
+              <i class="material-icons" ng-click="removerItemPendente($index)" title="Remover item registrado">delete</i>
             </td>
           </tr>
         </tbody>

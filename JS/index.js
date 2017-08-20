@@ -45,6 +45,7 @@ myTimeTracking.controller('MainCtr', ['$scope', '$interval', '$http',
       $scope.salvarTodos = salvarTodos;
       $scope.validarSessao = validarSessao;
       $scope.enviarPendenteParaRegistrado = enviarPendenteParaRegistrado;
+      $scope.registrarTodos = registrarTodos;
     }
 
     function addItemPendente() {
@@ -257,6 +258,12 @@ myTimeTracking.controller('MainCtr', ['$scope', '$interval', '$http',
     function enviarPendenteParaRegistrado(indexItem) {
       addItemRegistrado(angular.copy($scope.cadastro.itensPendentes[indexItem]));
       removerItemPendente(indexItem);
+    }
+
+    function registrarTodos() {
+      while ($scope.cadastro.itensPendentes.length > 0) {
+        enviarPendenteParaRegistrado(0);
+      }
     }
 
     init();
