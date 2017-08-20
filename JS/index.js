@@ -1,18 +1,17 @@
 var myTimeTracking = angular.module('myTimeTracking', []);
 
-myTimeTracking.controller('MainCtr', ['$scope', '$interval', 'dateFilter',
-  function($scope, $interval, dateFilter) {
+myTimeTracking.controller('MainCtr', ['$scope', '$interval', '$http',
+  function($scope, $interval, $http) {
     function init() {
-
-      $scope.headers = {
-
-      };
 
       $scope.cadastro = {
         timer: undefined,
         intensRegistrados: [],
         itensPendentes: [],
-        itemEmContagem: -1
+        itemEmContagem: -1,
+        headers: {
+          sessId: ""
+        }
       };
 
       $scope.addItemPendente = addItemPendente;
@@ -24,6 +23,7 @@ myTimeTracking.controller('MainCtr', ['$scope', '$interval', 'dateFilter',
       $scope.editarItem = editarItem;
       $scope.salvarItem = salvarItem;
       $scope.salvarTodos = salvarTodos;
+      $scope.validarSessao = validarSessao;
     }
 
     function addItemPendente() {
@@ -108,6 +108,29 @@ myTimeTracking.controller('MainCtr', ['$scope', '$interval', 'dateFilter',
       for (var i = 0; i < $scope.cadastro.itensPendentes.length; i++) {
         salvarItem(i);
       }
+    }
+
+    function validarSessao() {
+      $http.put("https://www1.safety8.com.br/servico/recurso/sessao", {
+        data: {
+          "sessId": $scope.cadastro.headers.sessId,
+          "NumSerie": "761"
+        },
+        headers: {
+          "Connection": "keep-alive",
+          "sessId": $scope.cadastro.headers.sessId,
+          "Content-Type": "application/json;charset=UTF-8",
+          "conexao": "VA03E4595AC",
+          "Accept-Encoding": "gzip, deflate, br",
+          "Accept-Language": "pt-BR,pt;q=0.8,en-US;q=0.6,en;q=0.4",
+          //"Origin": "https://www1.safety8.com.br",
+          "Referer": "https://www1.safety8.com.br/"
+        }
+      }).then(function(pResposta) {
+        alert(JSON.stringify(pResposta.data));
+      }).catch(function(err) {
+        console.log("", err);
+      });
     }
 
     init();

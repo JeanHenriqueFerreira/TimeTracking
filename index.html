@@ -15,8 +15,8 @@
   <div class="container-div">
     <main class="container ">
       <div class="div-header">
-        <input type="text" id="input-sessao" placeholder="Sessão">
-        <button>Validar sesão</button>
+        <input type="text" id="input-sessao" placeholder="Sessão" ng-model="cadastro.headers.sessId">
+        <button ng-click="validarSessao()">Validar sesão</button>
       </div>
     </main>
     <main class="container">
