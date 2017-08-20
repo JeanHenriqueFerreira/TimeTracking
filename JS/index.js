@@ -123,8 +123,9 @@ myTimeTracking.controller('MainCtr', ['$scope', '$interval', '$http',
           "conexao": "VA03E4595AC",
           "Accept-Encoding": "gzip, deflate, br",
           "Accept-Language": "pt-BR,pt;q=0.8,en-US;q=0.6,en;q=0.4",
-          //"Origin": "https://www1.safety8.com.br",
-          "Referer": "https://www1.safety8.com.br/"
+          "Access-Control-Allow-Origin": "*",
+          "Referer": "https://www1.safety8.com.br/",
+          "Origin": "https://jeanhenriqueferreira.github.io/TimeTracking"
         }
       }).then(function(pResposta) {
         alert(JSON.stringify(pResposta.data));
