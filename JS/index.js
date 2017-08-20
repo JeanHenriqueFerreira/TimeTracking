@@ -5,12 +5,26 @@ myTimeTracking.controller('MainCtr', ['$scope', '$interval', '$http',
     function init() {
 
       $scope.cadastro = {
+        quantidadeHoras: 8,
         timer: undefined,
         intensRegistrados: [],
         itensPendentes: [],
         itemEmContagem: -1,
+        existeEditando: false,
         headers: {
           sessId: ""
+        },
+        totalPendentes: {
+          tempo: 0,
+          tempoFormatado: "00:00:00"
+        },
+        totalRegistrado: {
+          tempo: 0,
+          tempoFormatado: "00:00:00"
+        },
+        faltanteParaHoras: {
+          tempo: 28800,
+          tempoFormatado: "08:00:00"
         }
       };
 
@@ -33,11 +47,12 @@ myTimeTracking.controller('MainCtr', ['$scope', '$interval', '$http',
         anot_descricao: "",
         tptrf_codigo: "",
         anot_tempo: "",
-        tempo: new Date("Sun Jan 01 2017 00:00:00 GMT-0200"),
+        tempo: 0,
         tempoFormatado: "00:00:00",
         selecionado: false,
         editando: true
       });
+      $scope.cadastro.existeEditando = true;
     }
 
     function destruirInterval() {
@@ -48,15 +63,27 @@ myTimeTracking.controller('MainCtr', ['$scope', '$interval', '$http',
     }
 
     function formataTempo(tempo) {
-      return ((tempo.getHours() < 10) ? "0" : "") + tempo.getHours() + ":" +
-        ((tempo.getMinutes() < 10) ? "0" : "") + tempo.getMinutes() + ":" +
-        ((tempo.getSeconds() < 10) ? "0" : "") + tempo.getSeconds();
+      var horas, minutos;
+      horas = parseInt(tempo / 3600);
+      tempo -= (horas * 3600);
+      minutos = parseInt(tempo / 60);
+      tempo -= (minutos * 60);
+      return ((horas < 10) ? "0" : "") + horas + ":" +
+        ((minutos < 10) ? "0" : "") + minutos + ":" +
+        ((tempo < 10) ? "0" : "") + tempo;
     }
 
     function somarUmSegundo() {
       if ($scope.cadastro.itemEmContagem !== -1) {
-        $scope.cadastro.itensPendentes[$scope.cadastro.itemEmContagem].tempo.setSeconds($scope.cadastro.itensPendentes[$scope.cadastro.itemEmContagem].tempo.getSeconds() + 1);
+        $scope.cadastro.itensPendentes[$scope.cadastro.itemEmContagem].tempo += 1;
         $scope.cadastro.itensPendentes[$scope.cadastro.itemEmContagem].tempoFormatado = formataTempo($scope.cadastro.itensPendentes[$scope.cadastro.itemEmContagem].tempo);
+        $scope.cadastro.totalPendentes.tempo += 1;
+        $scope.cadastro.totalPendentes.tempoFormatado = formataTempo($scope.cadastro.totalPendentes.tempo);
+        $scope.cadastro.faltanteParaHoras.tempo -= 1;
+        if ($scope.cadastro.faltanteParaHoras.tempo < 0) {
+          $scope.cadastro.faltanteParaHoras.tempo = 0;
+        }
+        $scope.cadastro.faltanteParaHoras.tempoFormatado = formataTempo($scope.cadastro.faltanteParaHoras.tempo);
       } else {
         destruirInterval();
       }
@@ -75,8 +102,25 @@ myTimeTracking.controller('MainCtr', ['$scope', '$interval', '$http',
     function removerItemPendente(item) {
       if ($scope.cadastro.itemEmContagem === item) {
         pausarContador();
+      } else {
+        if ($scope.cadastro.itemEmContagem > item) {
+          $scope.cadastro.itemEmContagem--;
+        }
       }
+      $scope.cadastro.totalPendentes.tempo -= $scope.cadastro.itensPendentes[item].tempo;
+      $scope.cadastro.faltanteParaHoras.tempo += $scope.cadastro.itensPendentes[item].tempo;
+
+      $scope.cadastro.totalPendentes.tempoFormatado = formataTempo($scope.cadastro.totalPendentes.tempo);
+      $scope.cadastro.faltanteParaHoras.tempoFormatado = formataTempo($scope.cadastro.faltanteParaHoras.tempo);
+
       $scope.cadastro.itensPendentes.splice(item, 1);
+      $scope.cadastro.existeEditando = false;
+      for (var i = 0; i < $scope.cadastro.itensPendentes.length; i++) {
+        if ($scope.cadastro.itensPendentes[i].editando) {
+          $scope.cadastro.existeEditando = true;
+          break;
+        }
+      }
     }
 
     function iniciarContagem(item) {
@@ -91,23 +135,40 @@ myTimeTracking.controller('MainCtr', ['$scope', '$interval', '$http',
     }
 
     function removerAllPendentes() {
+      for (var i = 0; i < $scope.cadastro.itensPendentes.length; i++) {
+        $scope.cadastro.totalPendentes.tempo -= $scope.cadastro.itensPendentes[i].tempo;
+        $scope.cadastro.faltanteParaHoras.tempo += $scope.cadastro.itensPendentes[i].tempo;
+      }
       $scope.cadastro.itensPendentes = [];
       $scope.cadastro.itemEmContagem = -1;
+      $scope.cadastro.existeEditando = false;
       destruirInterval();
+
+      $scope.cadastro.totalPendentes.tempoFormatado = formataTempo($scope.cadastro.totalPendentes.tempo);
+      $scope.cadastro.faltanteParaHoras.tempoFormatado = formataTempo($scope.cadastro.faltanteParaHoras.tempo);
     };
 
     function editarItem(item) {
       $scope.cadastro.itensPendentes[item].editando = true;
+      $scope.cadastro.existeEditando = true;
     }
 
     function salvarItem(item) {
       $scope.cadastro.itensPendentes[item].editando = false;
+      $scope.cadastro.existeEditando = false;
+      for (var i = 0; i < $scope.cadastro.itensPendentes.length; i++) {
+        if ($scope.cadastro.itensPendentes[i].editando) {
+          $scope.cadastro.existeEditando = true;
+          break;
+        }
+      }
     }
 
     function salvarTodos() {
       for (var i = 0; i < $scope.cadastro.itensPendentes.length; i++) {
         salvarItem(i);
       }
+      $scope.cadastro.existeEditando = false;
     }
 
     function validarSessao() {
