@@ -111,6 +111,55 @@ myTimeTracking.controller('MainCtr', ['$scope', '$interval', '$http',
     }
 
     function validarSessao() {
+      /*
+        $http({
+          method: 'PUT',
+          url: 'https://www1.safety8.com.br/servico/recurso/sessao',
+          headers: {
+            //"Connection": "keep-alive",
+            "sessId": $scope.cadastro.headers.sessId,
+            "Content-Type": "application/json;charset=UTF-8",
+            "conexao": "VA03E4595AC",
+            //"Accept-Encoding": "gzip, deflate, br",
+            //"Accept-Language": "pt-BR,pt;q=0.8,en-US;q=0.6,en;q=0.4",
+            "Access-Control-Allow-Origin": "*",
+            //"Referer": "https://www1.safety8.com.br/"
+            //"Origin": "https://jeanhenriqueferreira.github.io/TimeTracking"
+          },
+          data: {
+            "sessId": $scope.cadastro.headers.sessId,
+            "NumSerie": "761"
+          }
+        }).then(function(pResposta) {
+          alert(JSON.stringify(pResposta.data));
+        }).catch(function(err) {
+          console.log("", err);
+        });
+      */
+      /*
+      $http.put("", {
+        data: {
+          "sessId": $scope.cadastro.headers.sessId,
+          "NumSerie": "761",
+          headers: {
+            semOverlay: false,
+            conexao: "VA03E4595AC"
+          }
+        }
+        ,
+                headers: {
+                  "Connection": "keep-alive",
+                  "sessId": $scope.cadastro.headers.sessId,
+                  "Content-Type": "application/json;charset=UTF-8",
+                  "conexao": "VA03E4595AC",
+                  "Accept-Encoding": "gzip, deflate, br",
+                  "Accept-Language": "pt-BR,pt;q=0.8,en-US;q=0.6,en;q=0.4",
+                  "Access-Control-Allow-Origin": "*",
+                  "Referer": "https://www1.safety8.com.br/",
+                  "Origin": "https://jeanhenriqueferreira.github.io/TimeTracking"
+                }
+                
+      }).*/
       $http.put("https://www1.safety8.com.br/servico/recurso/sessao", {
         data: {
           "sessId": $scope.cadastro.headers.sessId,
@@ -123,9 +172,10 @@ myTimeTracking.controller('MainCtr', ['$scope', '$interval', '$http',
           "conexao": "VA03E4595AC",
           "Accept-Encoding": "gzip, deflate, br",
           "Accept-Language": "pt-BR,pt;q=0.8,en-US;q=0.6,en;q=0.4",
-          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Origin": "https://www1.safety8.com.br/",
           "Referer": "https://www1.safety8.com.br/",
-          "Origin": "https://jeanhenriqueferreira.github.io/TimeTracking"
+          "Authorization": "No Auth"
+            //"Origin": "https://jeanhenriqueferreira.github.io/TimeTracking"
         }
       }).then(function(pResposta) {
         alert(JSON.stringify(pResposta.data));
