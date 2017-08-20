@@ -13,7 +13,7 @@
 
 <body ng-app="myTimeTracking" ng-controller="MainCtr">
   <div class="container-div">
-    <main class="container ">
+    <main class="container" ng-if="false">
       <div class="div-header">
         <input type="text" id="input-sessao" placeholder="Sessão" ng-model="cadastro.headers.sessId">
         <button ng-click="validarSessao()">Validar sesão</button>
@@ -21,13 +21,21 @@
     </main>
     <main class="container">
 
-      <h2 class="orange">
-        Registros pedentes
-        <i class="material-icons icon-left-white" ng-click="addItemPendente()">add</i>
-        <i class="material-icons icon-left-white" ng-click="removerAllPendentes()">delete_forever</i>
-        <i class="material-icons icon-left-white">send</i>
-        <i class="material-icons" ng-click="salvarTodos()">check</i>
-      </h2>
+      <div class="header-card orange">
+        <div class="hundred-percent">
+          <div class="float-left">
+            <h2>Registros pedentes</h2>
+          </div>
+        </div>
+        <div class="hundred-percent">
+          <div class="float-right">
+            <i class="material-icons icon-left-white" ng-click="salvarTodos()">check</i>
+            <i class="material-icons icon-left-white">send</i>
+            <i class="material-icons icon-left-white" ng-click="removerAllPendentes()">delete_forever</i>
+            <i class="material-icons icon-left-white" ng-click="addItemPendente()">add</i>
+          </div>
+        </div>
+      </div>
 
       <table ng-if="cadastro.itensPendentes.length">
         <tr>
@@ -57,10 +65,22 @@
           </td>
         </tr>
       </table>
+      <p class="detail ">Total</p>
     </main>
     <main class="container ">
-      <h2 class="blue ">Registros enviados</h2>
-      <p class="detail ">Teste</p>
+      <div class="header-card blue">
+        <div class="hundred-percent">
+          <div class="float-left">
+            <h2>Registros enviados</h2>
+          </div>
+        </div>
+        <div class="hundred-percent">
+          <div class="float-right">
+            <i class="material-icons icon-left-white" ng-click="removerAllPendentes()">delete_forever</i>
+          </div>
+        </div>
+      </div>
+      <p class="detail ">Total</p>
     </main>
     <main class="container ">
       <p class="detail ">Total</p>

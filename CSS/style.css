@@ -30,27 +30,43 @@ table tr td input[type="text"]:disabled {
   color: white;
 }
 
-.conteiner-icons-big {}
+.float-right {
+  float: right;
+  padding: 10px 2px 0px 0px;
+}
+
+.float-left {
+  float: left;
+}
+
+.hundred-percent {
+  width: 100%;
+}
+
+.eighty-percent {
+  width: 80%;
+}
 
 i {
   cursor: pointer;
 }
 
 .icon-left-white {
-  padding: 3px 0px 0px 3px;
-  icon-size: 30;
+  padding: 6px;
+  border: 3px solid rgba(0, 0, 0, 0);
   color: white;
+  float: right;
+}
+
+.icon-left-white:hover {
+  background-color: rgba(0, 0, 0, 0.4);
+  border-radius: 30px;
 }
 
 .container-div {
   padding: 2px 2px 2px 20px;
   height: 100%;
   overflow: auto;
-}
-
-.header-card {
-  border: solid 1px;
-  border-radius: 5px;
 }
 
 @import url(https://fonts.googleapis.com/css?family=Roboto:400,300);
@@ -101,6 +117,12 @@ h2 {
 
 .red {
   background: #FF0000;
+}
+
+.header-card {
+  padding: 6px;
+  height: 70px;
+  border-radius: 5px;
 }
 
 .orange {

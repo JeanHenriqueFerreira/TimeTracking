@@ -136,44 +136,18 @@ myTimeTracking.controller('MainCtr', ['$scope', '$interval', '$http',
           console.log("", err);
         });
       */
-      /*
-      $http.put("", {
+      $http.put("https://controle.suporte99.com/servico/recurso/sessao", {
         data: {
-          "sessId": $scope.cadastro.headers.sessId,
-          "NumSerie": "761",
-          headers: {
-            semOverlay: false,
-            conexao: "VA03E4595AC"
-          }
-        }
-        ,
-                headers: {
-                  "Connection": "keep-alive",
-                  "sessId": $scope.cadastro.headers.sessId,
-                  "Content-Type": "application/json;charset=UTF-8",
-                  "conexao": "VA03E4595AC",
-                  "Accept-Encoding": "gzip, deflate, br",
-                  "Accept-Language": "pt-BR,pt;q=0.8,en-US;q=0.6,en;q=0.4",
-                  "Access-Control-Allow-Origin": "*",
-                  "Referer": "https://www1.safety8.com.br/",
-                  "Origin": "https://jeanhenriqueferreira.github.io/TimeTracking"
-                }
-                
-      }).*/
-      $http.put("https://www1.safety8.com.br/servico/recurso/sessao", {
-        data: {
-          "sessId": $scope.cadastro.headers.sessId,
-          "NumSerie": "761"
+          "sessId": $scope.cadastro.headers.sessId
         },
         headers: {
           "Connection": "keep-alive",
           "sessId": $scope.cadastro.headers.sessId,
           "Content-Type": "application/json;charset=UTF-8",
-          "conexao": "VA03E4595AC",
           "Accept-Encoding": "gzip, deflate, br",
           "Accept-Language": "pt-BR,pt;q=0.8,en-US;q=0.6,en;q=0.4",
-          "Access-Control-Allow-Origin": "https://www1.safety8.com.br/",
-          "Referer": "https://www1.safety8.com.br/",
+          "Access-Control-Allow-Origin": "https://jeanhenriqueferreira.github.io/TimeTracking",
+          "Referer": "https://controle.suporte99.com",
           "Authorization": "No Auth"
             //"Origin": "https://jeanhenriqueferreira.github.io/TimeTracking"
         }
