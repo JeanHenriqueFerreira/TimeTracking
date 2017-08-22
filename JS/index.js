@@ -40,12 +40,19 @@ myTimeTracking.controller('MainCtr', ['$scope', '$interval', '$http',
       $scope.iniciarContagem = iniciarContagem;
       $scope.pausarContador = pausarContador;
       $scope.destruirInterval = destruirInterval;
-      $scope.editarItem = editarItem;
+      $scope.editarItemPendente = editarItemPendente;
       $scope.salvarItem = salvarItem;
       $scope.salvarTodos = salvarTodos;
       $scope.validarSessao = validarSessao;
       $scope.enviarPendenteParaRegistrado = enviarPendenteParaRegistrado;
       $scope.registrarTodos = registrarTodos;
+      $scope.keyPress = keyPress;
+    }
+
+    function keyPress(event, indexItem) {
+      if (event.key === "Enter") {
+        salvarItem(indexItem);
+      }
     }
 
     function addItemPendente() {
@@ -60,6 +67,11 @@ myTimeTracking.controller('MainCtr', ['$scope', '$interval', '$http',
         selecionado: false,
         editando: true
       });
+
+      if ($scope.cadastro.timer === undefined) {
+        iniciarContagem($scope.cadastro.itensPendentes.length - 1);
+      }
+
       $scope.cadastro.existeEditando = true;
     }
 
@@ -174,9 +186,11 @@ myTimeTracking.controller('MainCtr', ['$scope', '$interval', '$http',
       $scope.cadastro.faltanteParaHoras.tempoFormatado = formataTempo($scope.cadastro.faltanteParaHoras.tempo);
     }
 
-    function editarItem(indexItem) {
-      $scope.cadastro.itensPendentes[indexItem].editando = true;
-      $scope.cadastro.existeEditando = true;
+    function editarItemPendente(indexItem) {
+      if (!$scope.cadastro.itensPendentes[indexItem].editando) {
+        $scope.cadastro.itensPendentes[indexItem].editando = true;
+        $scope.cadastro.existeEditando = true;
+      }
     }
 
     function salvarItem(indexItem) {

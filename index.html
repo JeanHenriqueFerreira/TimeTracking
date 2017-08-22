@@ -48,7 +48,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr ng-repeat=" item in cadastro.itensPendentes ">
+          <tr ng-repeat=" item in cadastro.itensPendentes" ng-keypress="keyPress($event, $index)" ng-dblclick="editarItemPendente($index)">
             <td>
               <i class="material-icons" ng-show="!item.selecionado" ng-click="iniciarContagem($index)">play_arrow</i>
               <i class="material-icons" ng-show="item.selecionado" ng-click="pausarContador()">pause</i>
@@ -58,7 +58,7 @@
             <td><input type="text" ng-model="item.trf_codigo" ng-disabled="!item.editando"></td>
             <td><input type="text" ng-model="item.trf_descricao" ng-disabled="!item.editando"></td>
             <td>
-              <i class="material-icons" ng-show="!item.editando" ng-click="editarItem($index)" title="Editar item pendente">mode_edit</i>
+              <i class="material-icons" ng-show="!item.editando" ng-click="editarItemPendente($index)" title="Editar item pendente">mode_edit</i>
               <i class="material-icons" ng-show="item.editando" ng-click="salvarItem($index)" title="Salvar item pendente">check</i>
               <i class="material-icons" ng-click="removerItemPendente($index)" title="Remover item pendente">delete</i>
               <i class="material-icons" title="Alterar tempo" ng-if="false">settings</i>
@@ -95,13 +95,13 @@
           </tr>
         </thead>
         <tbody>
-          <tr ng-repeat=" item in cadastro.itensRegistrados ">
-            <td><input type="text" ng-model="item.tempoFormatado" ng-disabled="true"></td>
-            <td><input type="text" ng-model="item.prot_codigo" ng-disabled="!item.editando"></td>
-            <td><input type="text" ng-model="item.trf_codigo" ng-disabled="!item.editando"></td>
-            <td><input type="text" ng-model="item.trf_descricao" ng-disabled="!item.editando"></td>
+          <tr ng-repeat=" item in cadastro.itensRegistrados">
+            <td><input type="text" ng-keydown="keyUp($event)" ng-model="item.tempoFormatado" ng-disabled="true"></td>
+            <td><input type="text" ng-press="keyUp($event)" ng-model="item.prot_codigo" ng-disabled="!item.editando"></td>
+            <td><input type="text" ng-keyup="keyUp($event)" ng-model="item.trf_codigo" ng-disabled="!item.editando"></td>
+            <td><input type="text" ng-keydown="keyUp($event)" ng-model="item.trf_descricao" ng-disabled="!item.editando"></td>
             <td ng-if="false">
-              <i class="material-icons" ng-show="!item.editando" ng-click="editarItem($index)" title="Editar item registrado">mode_edit</i>
+              <i class="material-icons" ng-show="!item.editando" ng-click="editarItemRegistrado($index)" title="Editar item registrado">mode_edit</i>
               <i class="material-icons" ng-show="item.editando" ng-click="salvarItem($index)" title="Salvar item registradov">check</i>
               <i class="material-icons" ng-click="removerItemPendente($index)" title="Remover item registrado">delete</i>
             </td>
