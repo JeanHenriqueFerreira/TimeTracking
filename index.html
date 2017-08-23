@@ -53,7 +53,10 @@
               <i class="material-icons" ng-show="!item.selecionado" ng-click="iniciarContagem($index)">play_arrow</i>
               <i class="material-icons" ng-show="item.selecionado" ng-click="pausarContador()">pause</i>
             </td>
-            <td><input type="text" ng-model="item.tempoFormatado" ng-disabled="true"></td>
+            <td>
+              <input type="text" ng-model="item.tempoFormatado" ng-disabled="true" ng-hide="item.editandoTempo">
+              <input type="text" ng-model="item.tempoFormatadoAuxiliar" ng-show="item.editandoTempo">
+            </td>
             <td><input type="text" ng-model="item.prot_codigo" ng-disabled="!item.editando"></td>
             <td><input type="text" ng-model="item.trf_codigo" ng-disabled="!item.editando"></td>
             <td><input type="text" ng-model="item.trf_descricao" ng-disabled="!item.editando"></td>
@@ -61,8 +64,9 @@
               <i class="material-icons" ng-show="!item.editando" ng-click="editarItemPendente($index)" title="Editar item pendente">mode_edit</i>
               <i class="material-icons" ng-show="item.editando" ng-click="salvarItem($index)" title="Salvar item pendente">check</i>
               <i class="material-icons" ng-click="removerItemPendente($index)" title="Remover item pendente">delete</i>
-              <i class="material-icons" title="Alterar tempo" ng-if="false">settings</i>
-              <i class="material-icons" title="Atribuir tempo em outro item">compare_arrows</i>
+              <i class="material-icons" ng-click="editarTempoItemPendente($index)" title="Alterar tempo" ng-hide="item.editandoTempo">timer_off</i>
+              <i class="material-icons" ng-click="salvarTempoEditado($index)" title="Alterar tempo" ng-show="item.editandoTempo">timer</i>
+              <i class="material-icons" ng-if="false" title="Atribuir tempo em outro item">compare_arrows</i>
               <i class="material-icons" title="Enviar para registrados" ng-click="enviarPendenteParaRegistrado($index)">send</i>
             </td>
           </tr>
