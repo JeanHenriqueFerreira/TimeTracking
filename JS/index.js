@@ -1,19 +1,20 @@
 var myTimeTracking = angular.module('myTimeTracking', []);
 
-myTimeTracking.controller('MainCtr', ['$scope', '$interval', '$http',
+myTimeTracking.controller('MainCtr', ['$scope', '$interval', '$http', //'$cookies',
   function($scope, $interval, $http) {
-    function init() {
 
+    function init() {
+      var vCadastroAndigo;
       $scope.cadastro = {
         quantidadeHoras: 8,
         timer: undefined,
-        itensRegistrados: [],
-        itensPendentes: [],
         itemEmContagem: -1,
         existeEditando: false,
         headers: {
           sessId: ""
         },
+        itensRegistrados: [],
+        itensPendentes: [],
         totalPendentes: {
           tempo: 0,
           tempoFormatado: "00:00:00"
@@ -49,11 +50,22 @@ myTimeTracking.controller('MainCtr', ['$scope', '$interval', '$http',
       $scope.keyPress = keyPress;
       $scope.editarTempoItemPendente = editarTempoItemPendente;
       $scope.salvarTempoEditado = salvarTempoEditado;
+
+      // vCadastroAndigo = $cookies.get(cadastroTimeTracking)
+      if (vCadastroAndigo) {
+        $scope.cadastro = vCadastroAndigo;
+        salvarTodos();
+        destruirInterval();
+      }
+
     }
 
     function keyPress(event, indexItem) {
       if (event.key === "Enter") {
         salvarItem(indexItem);
+        if ($scope.cadastro.itensPendentes[indexItem].editandoTempo) {
+          salvarTempoEditado(indexItem);
+        }
       }
     }
 
