@@ -55,7 +55,7 @@ myTimeTracking.controller('MainCtr', ['$scope', '$interval', '$http', '$cookies'
 
       vCadastroAndigo = $cookies.get("cadastroTimeTracking");
       if (vCadastroAndigo) {
-        $scope.cadastro = vCadastroAndigo;
+        $scope.cadastro = JSON.parse(vCadastroAndigo);
         salvarTodos();
         destruirInterval();
       }
@@ -68,8 +68,6 @@ myTimeTracking.controller('MainCtr', ['$scope', '$interval', '$http', '$cookies'
 
     function salvarCookies(valor, objeto) {
       $cookies.putObject(valor, JSON.stringify(objeto));
-      $cookies.put('myFavorite', 'oatmeal');
-      var vvCadastroAndigo = $cookies.get(valor);
     }
 
     function keyPress(event, indexItem) {
