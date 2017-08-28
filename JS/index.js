@@ -2,6 +2,7 @@ var myTimeTracking = angular.module('myTimeTracking', ['ngCookies']);
 
 myTimeTracking.controller('MainCtr', ['$scope', '$interval', '$http', '$cookies',
   function($scope, $interval, $http, $cookies) {
+    var contadorGlobal;
 
     function init() {
       var vCadastroAndigo;
@@ -31,6 +32,7 @@ myTimeTracking.controller('MainCtr', ['$scope', '$interval', '$http', '$cookies'
           tempo: 28800,
           tempoFormatado: "08:00:00"
         }
+
       };
 
       $scope.addItemPendente = addItemPendente;
@@ -51,13 +53,23 @@ myTimeTracking.controller('MainCtr', ['$scope', '$interval', '$http', '$cookies'
       $scope.editarTempoItemPendente = editarTempoItemPendente;
       $scope.salvarTempoEditado = salvarTempoEditado;
 
-      // vCadastroAndigo = $cookies.get(cadastroTimeTracking)
+      vCadastroAndigo = $cookies.get("cadastroTimeTracking");
       if (vCadastroAndigo) {
         $scope.cadastro = vCadastroAndigo;
         salvarTodos();
         destruirInterval();
       }
 
+      contadorGlobal = $interval(function() {
+        salvarCookies("cadastroTimeTracking", $scope.cadastro);
+      }, 10000);
+
+    }
+
+    function salvarCookies(valor, objeto) {
+      $cookies.putObject(valor, JSON.stringify(objeto));
+      $cookies.put('myFavorite', 'oatmeal');
+      var vvCadastroAndigo = $cookies.get(valor);
     }
 
     function keyPress(event, indexItem) {
@@ -177,6 +189,9 @@ myTimeTracking.controller('MainCtr', ['$scope', '$interval', '$http', '$cookies'
 
     $scope.$on('$destroy', function() {
       destruirInterval();
+
+      $interval.cancel(contadorGlobal);
+      contadorGlobal = undefined;
     });
 
     function pausarContador() {
