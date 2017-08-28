@@ -1,7 +1,7 @@
-var myTimeTracking = angular.module('myTimeTracking', []);
+var myTimeTracking = angular.module('myTimeTracking', ['ngCookies']);
 
-myTimeTracking.controller('MainCtr', ['$scope', '$interval', '$http', //'$cookies',
-  function($scope, $interval, $http) {
+myTimeTracking.controller('MainCtr', ['$scope', '$interval', '$http', '$cookies',
+  function($scope, $interval, $http, $cookies) {
 
     function init() {
       var vCadastroAndigo;

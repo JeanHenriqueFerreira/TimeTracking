@@ -1,0 +1,7 @@
+{
+  "name": "bower",
+  "description": "TimeTracking",
+  "dependencies": {
+    "angular-cookies": "^1.6.6"
+  }
+}
