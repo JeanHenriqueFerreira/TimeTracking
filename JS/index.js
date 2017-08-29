@@ -55,7 +55,7 @@ myTimeTracking.controller('MainCtr', ['$scope', '$interval', '$http', '$cookies'
 
       vCadastroAndigo = $cookies.get("cadastroTimeTracking");
       if (vCadastroAndigo) {
-        $scope.cadastro = JSON.parse(vCadastroAndigo);
+        $scope.cadastro = JSON.parse(JSON.parse(vCadastroAndigo));
         salvarTodos();
         destruirInterval();
       }
