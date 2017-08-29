@@ -67,7 +67,12 @@ myTimeTracking.controller('MainCtr', ['$scope', '$interval', '$http', '$cookies'
     }
 
     function salvarCookies(valor, objeto) {
-      $cookies.putObject(valor, JSON.stringify(objeto));
+      $cookies.putObject(valor, JSON.stringify(objeto, function(key, value) {
+        if (key === "$$hashKey")
+          return undefined;
+
+        return value;
+      }));
     }
 
     function keyPress(event, indexItem) {
