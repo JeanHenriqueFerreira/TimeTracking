@@ -199,7 +199,12 @@ myTimeTracking.controller('MainCtr', ['$scope', '$interval', '$http', '$cookies'
     });
 
     function pausarContador() {
-      $scope.cadastro.itensPendentes[$scope.cadastro.itemEmContagem].selecionado = false;
+      if ($scope.cadastro.itensPendentes &&
+        $scope.cadastro.itensPendentes.length > 0 &&
+        $scope.cadastro.itemEmContagem >= 0) {
+        $scope.cadastro.itensPendentes[$scope.cadastro.itemEmContagem].selecionado = false;
+      }
+
       $scope.cadastro.itemEmContagem = -1;
       destruirInterval();
     }
