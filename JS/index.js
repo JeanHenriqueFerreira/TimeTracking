@@ -359,6 +359,7 @@ myTimeTracking.controller('MainCtr', ['$scope', '$interval', '$http', '$cookies'
     }
 
     function enviarPendenteParaRegistrado(indexItem) {
+      salvarItem(indexItem);
       addItemRegistrado(angular.copy($scope.cadastro.itensPendentes[indexItem]));
       removerItemPendente(indexItem);
     }
