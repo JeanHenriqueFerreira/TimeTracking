@@ -6,6 +6,11 @@
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <script src="Externals/JS/angular-cookies.min.js"></script>
+  <script src="Externals/JS/ngDialog.js"></script>
+  <link href="Externals/CSS/ngDialog.css" rel="stylesheet">
+  <link href="Externals/CSS/ngDialog-custom-width.css" rel="stylesheet">
+  <link href="Externals/CSS/ngDialog-theme-default.css" rel="stylesheet">
+  <link href="Externals/CSS/ngDialog-theme-plain.css" rel="stylesheet">
   <!--script src="Externals/JS/cookiesWriter.js"></script-->
 
   <script src="JS/index.js"></script>
@@ -68,7 +73,7 @@
               <i class="material-icons" ng-click="removerItemPendente($index)" title="Remover item pendente">delete</i>
               <i class="material-icons" ng-click="editarTempoItemPendente($index)" title="Alterar tempo" ng-hide="item.editandoTempo">timer_off</i>
               <i class="material-icons" ng-click="salvarTempoEditado($index)" title="Alterar tempo" ng-show="item.editandoTempo">timer</i>
-              <i class="material-icons" ng-if="false" title="Atribuir tempo em outro item">compare_arrows</i>
+              <i class="material-icons" ng-click="abrirDialogTrocaTempo($index)" title="Atribuir tempo em outro item">compare_arrows</i>
               <i class="material-icons" title="Enviar para registrados" ng-click="enviarPendenteParaRegistrado($index)">send</i>
             </td>
           </tr>

@@ -2,6 +2,8 @@
   "name": "bower",
   "description": "TimeTracking",
   "dependencies": {
-    "angular-cookies": "^1.6.6"
+    "angular-cookies": "^1.6.6",
+    "ng-dialog": "ngDialog#^1.4.0",
+    "ngSweetAlert": "^1.1.2"
   }
 }

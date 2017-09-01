@@ -1,7 +1,7 @@
-var myTimeTracking = angular.module('myTimeTracking', ['ngCookies']);
+var myTimeTracking = angular.module('myTimeTracking', ['ngCookies', 'ngDialog']);
 
-myTimeTracking.controller('MainCtr', ['$scope', '$interval', '$http', '$cookies',
-  function($scope, $interval, $http, $cookies) {
+myTimeTracking.controller('MainCtr', ['$scope', '$interval', '$http', '$cookies', 'ngDialog',
+  function($scope, $interval, $http, $cookies, ngDialog) {
     var contadorGlobal;
 
     function init() {
@@ -52,6 +52,7 @@ myTimeTracking.controller('MainCtr', ['$scope', '$interval', '$http', '$cookies'
       $scope.keyPress = keyPress;
       $scope.editarTempoItemPendente = editarTempoItemPendente;
       $scope.salvarTempoEditado = salvarTempoEditado;
+      $scope.abrirDialogTrocaTempo = abrirDialogTrocaTempo;
 
       vCadastroAndigo = $cookies.get("cadastroTimeTracking");
       if (vCadastroAndigo) {
@@ -65,6 +66,14 @@ myTimeTracking.controller('MainCtr', ['$scope', '$interval', '$http', '$cookies'
         salvarCookies("cadastroTimeTracking", $scope.cadastro);
       }, 10000);
 
+    }
+
+    function abrirDialogTrocaTempo(indexItem) {
+      ngDialog.open({
+        templateUrl: './Templates/dialogTrocaTempo.html',
+        className: 'ngdialog-theme-default',
+        scope: $scope
+      });
     }
 
     function salvarCookies(valor, objeto) {
@@ -217,13 +226,6 @@ myTimeTracking.controller('MainCtr', ['$scope', '$interval', '$http', '$cookies'
           $scope.cadastro.itemEmContagem--;
         }
       }
-      $scope.cadastro.totalPendentes.tempo -= $scope.cadastro.itensPendentes[indexItem].tempo;
-      $scope.cadastro.faltanteParaHoras.tempo += $scope.cadastro.itensPendentes[indexItem].tempo;
-      $scope.cadastro.totalRegistrado.tempo -= $scope.cadastro.itensPendentes[indexItem].tempo;
-
-      $scope.cadastro.totalPendentes.tempoFormatado = formataTempo($scope.cadastro.totalPendentes.tempo);
-      $scope.cadastro.faltanteParaHoras.tempoFormatado = formataTempo($scope.cadastro.faltanteParaHoras.tempo);
-      $scope.cadastro.totalRegistrado.tempoFormatado = formataTempo($scope.cadastro.totalRegistrado.tempo);
 
       $scope.cadastro.itensPendentes.splice(indexItem, 1);
       $scope.cadastro.existeEditando = false;
@@ -326,7 +328,7 @@ myTimeTracking.controller('MainCtr', ['$scope', '$interval', '$http', '$cookies'
           console.log("", err);
         });
       */
-      $http.put("https://controle.suporte99.com/servico/recurso/sessao", {
+      $http.post("https://controle.suporte99.com/servico/recurso/sessao", {
         data: {
           "sessId": $scope.cadastro.headers.sessId
         },
@@ -336,10 +338,12 @@ myTimeTracking.controller('MainCtr', ['$scope', '$interval', '$http', '$cookies'
           "Content-Type": "application/json;charset=UTF-8",
           "Accept-Encoding": "gzip, deflate, br",
           "Accept-Language": "pt-BR,pt;q=0.8,en-US;q=0.6,en;q=0.4",
-          "Access-Control-Allow-Origin": "https://jeanhenriqueferreira.github.io/TimeTracking",
+          //"Access-Control-Allow-Origin": "https://jeanhenriqueferreira.github.io/TimeTracking",
           "Referer": "https://controle.suporte99.com",
-          "Authorization": "No Auth"
-            //"Origin": "https://jeanhenriqueferreira.github.io/TimeTracking"
+          "Authorization": "No Auth",
+          "Access-Control-Allow-Headers": "Authorization, Lang",
+          "Access-Control-Allow-Methods": "GET, POST, PUT, OPTIONS",
+          "Access-Control-Allow-Origin": "*"
         }
       }).then(function(pResposta) {
         alert(JSON.stringify(pResposta.data));
@@ -368,6 +372,14 @@ myTimeTracking.controller('MainCtr', ['$scope', '$interval', '$http', '$cookies'
 
     function enviarPendenteParaRegistrado(indexItem) {
       salvarItem(indexItem);
+      $scope.cadastro.totalPendentes.tempo -= $scope.cadastro.itensPendentes[indexItem].tempo;
+      $scope.cadastro.faltanteParaHoras.tempo += $scope.cadastro.itensPendentes[indexItem].tempo;
+      $scope.cadastro.totalRegistrado.tempo -= $scope.cadastro.itensPendentes[indexItem].tempo;
+
+      $scope.cadastro.totalPendentes.tempoFormatado = formataTempo($scope.cadastro.totalPendentes.tempo);
+      $scope.cadastro.faltanteParaHoras.tempoFormatado = formataTempo($scope.cadastro.faltanteParaHoras.tempo);
+      $scope.cadastro.totalRegistrado.tempoFormatado = formataTempo($scope.cadastro.totalRegistrado.tempo);
+
       $scope.cadastro.itensPendentes[indexItem].tempo = arredondarTempoItem($scope.cadastro.itensPendentes[indexItem].tempo);
       $scope.cadastro.itensPendentes[indexItem].tempoFormatado = formataTempo($scope.cadastro.itensPendentes[indexItem].tempo);
       addItemRegistrado(angular.copy($scope.cadastro.itensPendentes[indexItem]));
