@@ -177,6 +177,18 @@ myTimeTracking.controller('MainCtr', ['$scope', '$interval', '$http', '$cookies'
       tempo -= (horas * 3600);
       minutos = parseInt(tempo / 60);
       tempo -= (minutos * 60);
+      if (horas < 0) {
+        horas = 0;
+      }
+
+      if (minutos < 0) {
+        minutos = 0;
+      }
+
+      if (tempo < 0) {
+        tempo = 0;
+      }
+
       return ((horas < 10) ? "0" : "") + horas + ":" +
         ((minutos < 10) ? "0" : "") + minutos + ":" +
         ((tempo < 10) ? "0" : "") + tempo;
