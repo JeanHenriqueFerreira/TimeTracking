@@ -341,22 +341,24 @@ myTimeTracking.controller('MainCtr', ['$scope', '$interval', '$http', '$cookies'
           console.log("", err);
         });
       */
-      $http.post("https://controle.suporte99.com/servico/recurso/sessao", {
-        data: {
-          "sessId": $scope.cadastro.headers.sessId
-        },
+      var req = {
+        method: 'POST',
+        url: "https://controle.suporte99.com/servico/recurso/sessao",
         headers: {
-          "Connection": "keep-alive",
-          "sessId": $scope.cadastro.headers.sessId,
-          "Content-Type": "application/json;charset=UTF-8",
-          "Accept-Encoding": "*",
-          "Accept-Language": "*",
-          "Authorization": "No Auth",
-          "Access-Control-Allow-Headers": "Authorization, Lang",
-          "Access-Control-Allow-Methods": "GET, POST, PUT, OPTIONS",
-          "Access-Control-Allow-Origin": "*"
-        }
-      }).then(function(pResposta) {
+          'Connection': 'keep-alive',
+          'sessId': $scope.cadastro.headers.sessId,
+          'Content-Type': 'application/json;charset=UTF-8',
+          'Accept-Encoding': '*',
+          'Accept-Language': '*',
+          'Authorization': 'No Auth',
+          'Access-Control-Allow-Headers': 'Authorization, Lang',
+          'Access-Control-Allow-Methods': 'GET, POST, PUT',
+          'Access-Control-Allow-Origin': '*'
+        },
+        data: { "sessId": $scope.cadastro.headers.sessId }
+      }
+
+      $http(req).then(function(pResposta) {
         alert(JSON.stringify(pResposta.data));
       }, function(pResponseError) {
         console.log("", pResponseError);
