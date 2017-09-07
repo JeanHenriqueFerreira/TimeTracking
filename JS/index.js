@@ -358,6 +358,8 @@ myTimeTracking.controller('MainCtr', ['$scope', '$interval', '$http', '$cookies'
         }
       }).then(function(pResposta) {
         alert(JSON.stringify(pResposta.data));
+      }, function(pResponseError) {
+        console.log("", pResponseError);
       }).catch(function(err) {
         console.log("", err);
       });
