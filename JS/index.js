@@ -183,6 +183,7 @@ myTimeTracking.controller('MainCtr', ['$scope', '$interval', '$http', '$cookies'
 
       if (minutos < 0) {
         minutos = 0;
+        x
       }
 
       if (tempo < 0) {
@@ -348,10 +349,8 @@ myTimeTracking.controller('MainCtr', ['$scope', '$interval', '$http', '$cookies'
           "Connection": "keep-alive",
           "sessId": $scope.cadastro.headers.sessId,
           "Content-Type": "application/json;charset=UTF-8",
-          "Accept-Encoding": "gzip, deflate, br",
-          "Accept-Language": "pt-BR,pt;q=0.8,en-US;q=0.6,en;q=0.4",
-          //"Access-Control-Allow-Origin": "https://jeanhenriqueferreira.github.io/TimeTracking",
-          "Referer": "https://controle.suporte99.com",
+          "Accept-Encoding": "*",
+          "Accept-Language": "*",
           "Authorization": "No Auth",
           "Access-Control-Allow-Headers": "Authorization, Lang",
           "Access-Control-Allow-Methods": "GET, POST, PUT, OPTIONS",
