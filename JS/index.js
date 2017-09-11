@@ -240,6 +240,11 @@ myTimeTracking.controller('MainCtr', ['$scope', '$interval', '$http', '$cookies'
         }
       }
 
+      $scope.cadastro.totalPendentes.tempo -= $scope.cadastro.itensPendentes[indexItem].tempo;
+      $scope.cadastro.totalPendentes.tempoFormatado = formataTempo($scope.cadastro.totalPendentes.tempo);
+      $scope.cadastro.totalRegistrado.tempo -= $scope.cadastro.itensPendentes[indexItem].tempo;
+      $scope.cadastro.totalRegistrado.tempoFormatado = formataTempo($scope.cadastro.totalRegistrado.tempo);
+
       $scope.cadastro.itensPendentes.splice(indexItem, 1);
       $scope.cadastro.existeEditando = false;
       for (var i = 0; i < $scope.cadastro.itensPendentes.length; i++) {
