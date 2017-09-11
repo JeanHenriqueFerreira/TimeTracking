@@ -1,4 +1,17 @@
-var myTimeTracking = angular.module('myTimeTracking', ['ngCookies', 'ngDialog']);
+var myTimeTracking = angular.module('myTimeTracking', ['ngCookies', 'ngDialog', 'ui.router']);
+
+myTimeTracking.config(["$stateProvider", "$urlRouterProvider", "$httpProvider",
+  function($stateProvider, $urlRouterProvider, $httpProvider) {
+    //evitar cache no ie
+    $httpProvider.defaults.cache = false;
+
+    if (!$httpProvider.defaults.headers.get) {
+      $httpProvider.defaults.headers.get = {};
+    }
+    // disable IE ajax request caching
+    $httpProvider.defaults.headers.get['If-Modified-Since'] = '0';
+  }
+]);
 
 myTimeTracking.controller('MainCtr', ['$scope', '$interval', '$http', '$cookies', 'ngDialog',
   function($scope, $interval, $http, $cookies, ngDialog) {
@@ -368,9 +381,7 @@ myTimeTracking.controller('MainCtr', ['$scope', '$interval', '$http', '$cookies'
       $http(req).then(function(pResposta) {
         alert(JSON.stringify(pResposta.data));
       }, function(pResponseError) {
-        console.log("", pResponseError);
-      }).catch(function(err) {
-        console.log("", err);
+        console.log("ERROR", pResponseError);
       });
     }
 
