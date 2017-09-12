@@ -365,14 +365,10 @@ myTimeTracking.controller('MainCtr', ['$scope', '$interval', '$http', '$cookies'
         method: 'POST',
         url: "https://controle.suporte99.com/servico/recurso/sessao",
         headers: {
-          //'Connection': 'keep-alive',
           'sessId': $scope.cadastro.headers.sessId,
           'Content-Type': 'application/json',
-          //'Accept-Encoding': '*',
-          'Accept-Language': '*',
-          'Authorization': 'No Auth',
-          'Access-Control-Allow-Headers': 'Authorization, Lang',
-          'Access-Control-Allow-Methods': 'GET, POST, PUT',
+          'Access-Control-Allow-Headers': 'Content-Type',
+          'Access-Control-Allow-Methods': 'GET, POST',
           'Access-Control-Allow-Origin': '*'
         },
         data: { "sessId": $scope.cadastro.headers.sessId }
