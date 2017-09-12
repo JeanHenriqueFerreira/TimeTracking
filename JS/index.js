@@ -196,7 +196,6 @@ myTimeTracking.controller('MainCtr', ['$scope', '$interval', '$http', '$cookies'
 
       if (minutos < 0) {
         minutos = 0;
-        x
       }
 
       if (tempo < 0) {
