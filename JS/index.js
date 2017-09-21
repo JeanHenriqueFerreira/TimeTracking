@@ -383,10 +383,10 @@ myTimeTracking.controller('MainCtr', ['$scope', '$interval', '$http', '$cookies'
     function addItemRegistrado(item) {
       $scope.cadastro.itensRegistrados.push(item);
       $scope.cadastro.faltanteParaHoras.tempo -= item.tempo;
-      $scope.cadastro.faltanteParaHoras.tempoFormatado = formataTempo($scope.cadastro.faltanteParaHoras.tempo);
       $scope.cadastro.totalEnviado.tempo += item.tempo;
-      $scope.cadastro.totalEnviado.tempoFormatado = formataTempo($scope.cadastro.totalEnviado.tempo);
       $scope.cadastro.totalRegistrado.tempo += item.tempo;
+      $scope.cadastro.totalEnviado.tempoFormatado = formataTempo($scope.cadastro.totalEnviado.tempo);
+      $scope.cadastro.faltanteParaHoras.tempoFormatado = formataTempo($scope.cadastro.faltanteParaHoras.tempo);
       $scope.cadastro.totalRegistrado.tempoFormatado = formataTempo($scope.cadastro.totalRegistrado.tempo);
     }
 
@@ -401,11 +401,9 @@ myTimeTracking.controller('MainCtr', ['$scope', '$interval', '$http', '$cookies'
     function enviarPendenteParaRegistrado(indexItem) {
       salvarItem(indexItem);
       $scope.cadastro.totalPendentes.tempo -= $scope.cadastro.itensPendentes[indexItem].tempo;
-      $scope.cadastro.faltanteParaHoras.tempo += $scope.cadastro.itensPendentes[indexItem].tempo;
       $scope.cadastro.totalRegistrado.tempo -= $scope.cadastro.itensPendentes[indexItem].tempo;
 
       $scope.cadastro.totalPendentes.tempoFormatado = formataTempo($scope.cadastro.totalPendentes.tempo);
-      $scope.cadastro.faltanteParaHoras.tempoFormatado = formataTempo($scope.cadastro.faltanteParaHoras.tempo);
       $scope.cadastro.totalRegistrado.tempoFormatado = formataTempo($scope.cadastro.totalRegistrado.tempo);
 
       $scope.cadastro.itensPendentes[indexItem].tempo = arredondarTempoItem($scope.cadastro.itensPendentes[indexItem].tempo);
