@@ -37,7 +37,7 @@ myTimeTracking.controller('MainCtr', ['$scope', '$interval', '$http', '$cookies'
           tempo: 0,
           tempoFormatado: "00:00:00"
         },
-        totalEnviado: {
+        totalDeTempo: {
           tempo: 0,
           tempoFormatado: "00:00:00"
         },
@@ -53,6 +53,7 @@ myTimeTracking.controller('MainCtr', ['$scope', '$interval', '$http', '$cookies'
       $scope.removerAllPendentes = removerAllPendentes;
       $scope.removerAllRegistrados = removerAllRegistrados;
       $scope.removerItemPendente = removerItemPendente;
+      $scope.removerItemRegistrado = removerItemRegistrado;
       $scope.iniciarContagem = iniciarContagem;
       $scope.pausarContador = pausarContador;
       $scope.destruirInterval = destruirInterval;
@@ -134,7 +135,7 @@ myTimeTracking.controller('MainCtr', ['$scope', '$interval', '$http', '$cookies'
           pausarContador();
         }
         $scope.cadastro.totalPendentes.tempo -= $scope.cadastro.itensPendentes[indexItem].tempo;
-        $scope.cadastro.totalRegistrado.tempo -= $scope.cadastro.itensPendentes[indexItem].tempo;
+        $scope.cadastro.totalDeTempo.tempo -= $scope.cadastro.itensPendentes[indexItem].tempo;
         $scope.cadastro.faltanteParaHoras.tempo += $scope.cadastro.itensPendentes[indexItem].tempo;
         novoTempo = converterFormatadoParaSegundos($scope.cadastro.itensPendentes[indexItem].tempoFormatadoAuxiliar);
         if (novoTempo >= 0) {;
@@ -142,10 +143,10 @@ myTimeTracking.controller('MainCtr', ['$scope', '$interval', '$http', '$cookies'
         }
         $scope.cadastro.itensPendentes[indexItem].tempoFormatado = formataTempo($scope.cadastro.itensPendentes[indexItem].tempo);
         $scope.cadastro.totalPendentes.tempo += $scope.cadastro.itensPendentes[indexItem].tempo;
-        $scope.cadastro.totalRegistrado.tempo += $scope.cadastro.itensPendentes[indexItem].tempo;
+        $scope.cadastro.totalDeTempo.tempo += $scope.cadastro.itensPendentes[indexItem].tempo;
         $scope.cadastro.faltanteParaHoras.tempo -= $scope.cadastro.itensPendentes[indexItem].tempo;
         $scope.cadastro.totalPendentes.tempoFormatado = formataTempo($scope.cadastro.totalPendentes.tempo);
-        $scope.cadastro.totalRegistrado.tempoFormatado = formataTempo($scope.cadastro.totalRegistrado.tempo);
+        $scope.cadastro.totalDeTempo.tempoFormatado = formataTempo($scope.cadastro.totalDeTempo.tempo);
         $scope.cadastro.faltanteParaHoras.tempoFormatado = formataTempo($scope.cadastro.faltanteParaHoras.tempo);
 
         $scope.cadastro.itensPendentes[indexItem].editandoTempo = false;
@@ -210,15 +211,15 @@ myTimeTracking.controller('MainCtr', ['$scope', '$interval', '$http', '$cookies'
     function somarUmSegundo() {
       if ($scope.cadastro.itemEmContagem !== -1) {
         $scope.cadastro.itensPendentes[$scope.cadastro.itemEmContagem].tempo += 1;
-        $scope.cadastro.itensPendentes[$scope.cadastro.itemEmContagem].tempoFormatado = formataTempo($scope.cadastro.itensPendentes[$scope.cadastro.itemEmContagem].tempo);
         $scope.cadastro.totalPendentes.tempo += 1;
-        $scope.cadastro.totalPendentes.tempoFormatado = formataTempo($scope.cadastro.totalPendentes.tempo);
-        $scope.cadastro.totalRegistrado.tempo += 1;
-        $scope.cadastro.totalRegistrado.tempoFormatado = formataTempo($scope.cadastro.totalRegistrado.tempo);
+        $scope.cadastro.totalDeTempo.tempo += 1;
         $scope.cadastro.faltanteParaHoras.tempo -= 1;
         if ($scope.cadastro.faltanteParaHoras.tempo < 0) {
           $scope.cadastro.faltanteParaHoras.tempo = 0;
         }
+        $scope.cadastro.itensPendentes[$scope.cadastro.itemEmContagem].tempoFormatado = formataTempo($scope.cadastro.itensPendentes[$scope.cadastro.itemEmContagem].tempo);
+        $scope.cadastro.totalPendentes.tempoFormatado = formataTempo($scope.cadastro.totalPendentes.tempo);
+        $scope.cadastro.totalDeTempo.tempoFormatado = formataTempo($scope.cadastro.totalDeTempo.tempo);
         $scope.cadastro.faltanteParaHoras.tempoFormatado = formataTempo($scope.cadastro.faltanteParaHoras.tempo);
       } else {
         destruirInterval();
@@ -244,6 +245,12 @@ myTimeTracking.controller('MainCtr', ['$scope', '$interval', '$http', '$cookies'
     }
 
     function removerItemPendente(indexItem) {
+      if (indexItem < 0) {
+        return;
+      }
+
+      salvarTodos();
+
       if ($scope.cadastro.itemEmContagem === indexItem) {
         pausarContador();
       } else {
@@ -253,11 +260,11 @@ myTimeTracking.controller('MainCtr', ['$scope', '$interval', '$http', '$cookies'
       }
 
       $scope.cadastro.totalPendentes.tempo -= $scope.cadastro.itensPendentes[indexItem].tempo;
-      $scope.cadastro.totalRegistrado.tempo -= $scope.cadastro.itensPendentes[indexItem].tempo;
+      $scope.cadastro.totalDeTempo.tempo -= $scope.cadastro.itensPendentes[indexItem].tempo;
       $scope.cadastro.faltanteParaHoras.tempo += $scope.cadastro.itensPendentes[indexItem].tempo;
-      $scope.cadastro.totalRegistrado.tempoFormatado = formataTempo($scope.cadastro.totalRegistrado.tempo);
       $scope.cadastro.totalPendentes.tempoFormatado = formataTempo($scope.cadastro.totalPendentes.tempo);
       $scope.cadastro.faltanteParaHoras.tempoFormatado = formataTempo($scope.cadastro.faltanteParaHoras.tempo);
+      $scope.cadastro.totalDeTempo.tempoFormatado = formataTempo($scope.cadastro.totalDeTempo.tempo);
 
       $scope.cadastro.itensPendentes.splice(indexItem, 1);
       $scope.cadastro.existeEditando = false;
@@ -303,8 +310,8 @@ myTimeTracking.controller('MainCtr', ['$scope', '$interval', '$http', '$cookies'
       }
       $scope.cadastro.itensRegistrados = [];
 
-      $scope.cadastro.totalEnviado.tempo = 0;
-      $scope.cadastro.totalEnviado.tempoFormatado = "00:00:00";
+      $scope.cadastro.totalDeTempo.tempo = 0;
+      $scope.cadastro.totalDeTempo.tempoFormatado = "00:00:00";
       $scope.cadastro.faltanteParaHoras.tempoFormatado = formataTempo($scope.cadastro.faltanteParaHoras.tempo);
       $scope.cadastro.totalRegistrado.tempoFormatado = formataTempo($scope.cadastro.totalRegistrado.tempo);
     }
@@ -383,9 +390,9 @@ myTimeTracking.controller('MainCtr', ['$scope', '$interval', '$http', '$cookies'
     function addItemRegistrado(item) {
       $scope.cadastro.itensRegistrados.push(item);
       $scope.cadastro.faltanteParaHoras.tempo -= item.tempo;
-      $scope.cadastro.totalEnviado.tempo += item.tempo;
+      $scope.cadastro.totalDeTempo.tempo += item.tempo;
       $scope.cadastro.totalRegistrado.tempo += item.tempo;
-      $scope.cadastro.totalEnviado.tempoFormatado = formataTempo($scope.cadastro.totalEnviado.tempo);
+      $scope.cadastro.totalDeTempo.tempoFormatado = formataTempo($scope.cadastro.totalDeTempo.tempo);
       $scope.cadastro.faltanteParaHoras.tempoFormatado = formataTempo($scope.cadastro.faltanteParaHoras.tempo);
       $scope.cadastro.totalRegistrado.tempoFormatado = formataTempo($scope.cadastro.totalRegistrado.tempo);
     }
@@ -400,16 +407,12 @@ myTimeTracking.controller('MainCtr', ['$scope', '$interval', '$http', '$cookies'
 
     function enviarPendenteParaRegistrado(indexItem) {
       salvarItem(indexItem);
-      $scope.cadastro.totalPendentes.tempo -= $scope.cadastro.itensPendentes[indexItem].tempo;
-      $scope.cadastro.totalRegistrado.tempo -= $scope.cadastro.itensPendentes[indexItem].tempo;
-
-      $scope.cadastro.totalPendentes.tempoFormatado = formataTempo($scope.cadastro.totalPendentes.tempo);
-      $scope.cadastro.totalRegistrado.tempoFormatado = formataTempo($scope.cadastro.totalRegistrado.tempo);
-
-      $scope.cadastro.itensPendentes[indexItem].tempo = arredondarTempoItem($scope.cadastro.itensPendentes[indexItem].tempo);
-      $scope.cadastro.itensPendentes[indexItem].tempoFormatado = formataTempo($scope.cadastro.itensPendentes[indexItem].tempo);
       addItemRegistrado(angular.copy($scope.cadastro.itensPendentes[indexItem]));
       removerItemPendente(indexItem);
+    }
+
+    function removerItemRegistrado() {
+
     }
 
     function registrarTodos() {
