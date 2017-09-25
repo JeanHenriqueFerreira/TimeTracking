@@ -209,6 +209,7 @@ myTimeTracking.controller('MainCtr', ['$scope', '$interval', '$http', '$cookies'
     }
 
     function somarUmSegundo() {
+      var dataAtual;
       if ($scope.cadastro.itemEmContagem !== -1) {
         $scope.cadastro.itensPendentes[$scope.cadastro.itemEmContagem].tempo += 1;
         $scope.cadastro.totalPendentes.tempo += 1;
@@ -221,6 +222,18 @@ myTimeTracking.controller('MainCtr', ['$scope', '$interval', '$http', '$cookies'
         $scope.cadastro.totalPendentes.tempoFormatado = formataTempo($scope.cadastro.totalPendentes.tempo);
         $scope.cadastro.totalDeTempo.tempoFormatado = formataTempo($scope.cadastro.totalDeTempo.tempo);
         $scope.cadastro.faltanteParaHoras.tempoFormatado = formataTempo($scope.cadastro.faltanteParaHoras.tempo);
+
+        if ($scope.cadastro.itemEmContagem !== -1) {
+          dataAtual = new Date();
+          if (((dataAtual.getHours() === 12 || dataAtual.getDate() === 18)) &&
+            (dataAtual.getMinutes() === 0)) {
+            pausarContador();
+            ngDialog.open({
+              template: '<p>Contador pausado</p>',
+              plain: true
+            });
+          }
+        }
       } else {
         destruirInterval();
       }
@@ -368,7 +381,7 @@ myTimeTracking.controller('MainCtr', ['$scope', '$interval', '$http', '$cookies'
         });
       */
       var req = {
-        method: 'POST',
+        method: 'GET',
         url: "https://controle.suporte99.com/servico/recurso/sessao",
         headers: {
           'sessId': $scope.cadastro.headers.sessId,
@@ -377,7 +390,7 @@ myTimeTracking.controller('MainCtr', ['$scope', '$interval', '$http', '$cookies'
           'Access-Control-Allow-Methods': 'GET, POST',
           'Access-Control-Allow-Origin': '*'
         },
-        data: { "sessId": $scope.cadastro.headers.sessId }
+        params: { "sessId": $scope.cadastro.headers.sessId }
       }
 
       $http(req).then(function(pResposta) {
