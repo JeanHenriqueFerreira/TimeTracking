@@ -1,1 +1,22 @@
 <p>Perdeu alguma coisa aqui? </p>
+
+<table ng-if="false">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Tempo</th>
+      <th>Protocolo</th>
+      <th>Tarefa</th>
+      <th>Descrição</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="item in cadastro.itensPendentes">
+      <tr></tr>
+      <tr>item.tempoFormatado</tr>
+      <tr>item.prot_codigo</tr>
+      <tr>item.trf_codigo</tr>
+      <tr>item.descricao</tr>
+    </tr>
+  </tbody>
+</table>

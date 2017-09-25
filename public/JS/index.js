@@ -19,6 +19,7 @@ myTimeTracking.controller('MainCtr', ['$scope', '$interval', '$http', '$cookies'
 
     function init() {
       var vCadastroAndigo;
+      $scope.indexOrigem = [];
       $scope.cadastro = {
         quantidadeHoras: 8,
         timer: undefined,
@@ -45,7 +46,6 @@ myTimeTracking.controller('MainCtr', ['$scope', '$interval', '$http', '$cookies'
           tempo: 28800,
           tempoFormatado: "08:00:00"
         }
-
       };
 
       $scope.addItemPendente = addItemPendente;
@@ -83,11 +83,16 @@ myTimeTracking.controller('MainCtr', ['$scope', '$interval', '$http', '$cookies'
     }
 
     function abrirDialogTrocaTempo(indexItem) {
+      $scope.indexOrigem = indexItem;
       ngDialog.open({
-        templateUrl: './Templates/dialogTrocaTempo.html',
+        templateUrl: './public/Templates/dialogTrocaTempo.html',
         className: 'ngdialog-theme-default',
         scope: $scope
       });
+    }
+
+    function realizarTrocaDeTempo() {
+
     }
 
     function salvarCookies(valor, objeto) {
@@ -431,6 +436,27 @@ myTimeTracking.controller('MainCtr', ['$scope', '$interval', '$http', '$cookies'
     function registrarTodos() {
       while ($scope.cadastro.itensPendentes.length > 0) {
         enviarPendenteParaRegistrado(0);
+      }
+    }
+
+    function transferirTempo(indexOrigem, indexDestino, quantidadeTempo, todoTempo) {
+      if (!$scope.cadastro.itensPendentes[indexOrigem] || !$scope.cadastro.itensPendentes[indexDestino]) {
+        return;
+      }
+
+      if (indexOrigem === $scope.cadastro.itemEmContagem) {
+        pausarContador();
+      }
+
+      if (todoTempo) {
+        quantidadeTempo = $scope.cadastro.itensPendentes[indexOrigem].tempo;
+      }
+
+      if (quantidadeTempo > 0 && quantidadeTempo <= $scope.cadastro.itensPendentes[indexOrigem].tempo) {
+        $scope.cadastro.itensPendentes[indexOrigem].tempo -= quantidadeTempo;
+        $scope.cadastro.itensPendentes[indexDestino].tempo -= quantidadeTempo;
+        $scope.cadastro.itensPendentes[indexOrigem].tempoFormatado = formataTempo($scope.cadastro.itensPendentes[indexOrigem].tempo);
+        $scope.cadastro.itensPendentes[indexDestino].tempoFormatado = formataTempo($scope.cadastro.itensPendentes[indexDestino].tempo);
       }
     }
 
