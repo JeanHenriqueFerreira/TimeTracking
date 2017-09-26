@@ -1,28 +1,31 @@
-<p>Tempo disponível para transferir: {{cadastro.itensPendentes[indexOrigem].tempoFormatado}}</p>
-<table>
-  <thead>
-    <tr>
-      <th></th>
-      <th>Tempo</th>
-      <th>Protocolo</th>
-      <th>Tarefa</th>
-      <th>Descrição</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr ng-repeat="item in cadastro.itensPendentes" ng-if="$index !== indexOrigem">
-      <td></td>
-      <td>{{item.tempoFormatado}}</td>
-      <td>{{item.prot_codigo}}</td>
-      <td>{{item.trf_codigo}}</td>
-      <td>{{item.anot_descricao}}</td>
-    </tr>
-  </tbody>
-</table>
+<p>Perdeu alguma coisa aqui?</p>
+<div ng-show="false">
+  <p>Tempo disponível para transferir: {{cadastro.itensPendentes[indexOrigem].tempoFormatado}}</p>
+  <table>
+    <thead>
+      <tr>
+        <th></th>
+        <th>Tempo</th>
+        <th>Protocolo</th>
+        <th>Tarefa</th>
+        <th>Descrição</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="item in cadastro.itensPendentes" ng-if="$index !== indexOrigem">
+        <td></td>
+        <td>{{item.tempoFormatado}}</td>
+        <td>{{item.prot_codigo}}</td>
+        <td>{{item.trf_codigo}}</td>
+        <td>{{item.anot_descricao}}</td>
+      </tr>
+    </tbody>
+  </table>
 
-<input type="checkbox" id="checkTransferirTudo" ng-model="transferirTudo">
-<label for="checkTransferirTudo">Transferir todo o tempo</label><br/>
+  <input type="checkbox" id="checkTransferirTudo" ng-model="transferirTudo">
+  <label for="checkTransferirTudo">Transferir todo o tempo</label><br/>
 
-<input type="text" ng-model="tempoATransferir" /><br/>
+  <input type="text" ng-model="tempoATransferir" /><br/>
 
-<button ng-click="realizarTransferencia"> Transferir </button>
+  <button ng-click="realizarTransferencia"> Transferir </button>
+</div>
