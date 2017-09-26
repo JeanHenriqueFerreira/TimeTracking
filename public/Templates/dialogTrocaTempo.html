@@ -1,6 +1,5 @@
-<p>Perdeu alguma coisa aqui? </p>
-
-<table ng-if="true">
+<p>Tempo disponível para transferir: {{cadastro.itensPendentes[indexOrigem].tempoFormatado}}</p>
+<table>
   <thead>
     <tr>
       <th></th>
@@ -11,7 +10,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat="item in cadastro.itensPendentes">
+    <tr ng-repeat="item in cadastro.itensPendentes" ng-if="$index !== indexOrigem">
       <td></td>
       <td>{{item.tempoFormatado}}</td>
       <td>{{item.prot_codigo}}</td>
