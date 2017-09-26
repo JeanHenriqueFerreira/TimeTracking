@@ -86,7 +86,7 @@ myTimeTracking.controller('MainCtr', ['$scope', '$interval', '$http', '$cookies'
       $scope.indexOrigem = indexItem;
       ngDialog.open({
         templateUrl: './public/Templates/dialogTrocaTempo.html',
-        className: 'ngdialog-theme-default',
+        //className: 'ngdialog-theme-default',
         scope: $scope
       });
     }
