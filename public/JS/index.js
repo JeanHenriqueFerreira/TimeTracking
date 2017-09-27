@@ -324,12 +324,12 @@ myTimeTracking.controller('MainCtr', ['$scope', '$interval', '$http', '$cookies'
     function removerAllRegistrados() {
       for (var i = 0; i < $scope.cadastro.itensRegistrados.length; i++) {
         $scope.cadastro.faltanteParaHoras.tempo += $scope.cadastro.itensRegistrados[i].tempo;
-        $scope.cadastro.totalRegistrado.tempo -= $scope.cadastro.itensRegistrados[i].tempo;
+        $scope.cadastro.totalDeTempo.tempo -= $scope.cadastro.itensRegistrados[i].tempo;
       }
       $scope.cadastro.itensRegistrados = [];
 
-      $scope.cadastro.totalDeTempo.tempo = 0;
-      $scope.cadastro.totalDeTempo.tempoFormatado = "00:00:00";
+      $scope.cadastro.totalRegistrado.tempo = 0;
+      $scope.cadastro.totalRegistrado.tempoFormatado = "00:00:00";
       $scope.cadastro.faltanteParaHoras.tempoFormatado = formataTempo($scope.cadastro.faltanteParaHoras.tempo);
       $scope.cadastro.totalRegistrado.tempoFormatado = formataTempo($scope.cadastro.totalRegistrado.tempo);
     }
