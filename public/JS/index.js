@@ -415,7 +415,7 @@ myTimeTracking.controller('MainCtr', ['$scope', '$interval', '$http', '$cookies'
       $scope.cadastro.totalRegistrado.tempoFormatado = formataTempo($scope.cadastro.totalRegistrado.tempo);
     }
 
-    function arredondarTempoItem(tempo) {
+    function arredondarTempo(tempo) {
       var tempoAux = tempo % 60;
       if (tempoAux >= 30) {
         return tempo + (60 - tempoAux);
@@ -424,9 +424,13 @@ myTimeTracking.controller('MainCtr', ['$scope', '$interval', '$http', '$cookies'
     }
 
     function enviarPendenteParaRegistrado(indexItem) {
+      var itemAAdicionar;
       salvarItem(indexItem);
-      addItemRegistrado(angular.copy($scope.cadastro.itensPendentes[indexItem]));
+      itemAAdicionar = angular.copy($scope.cadastro.itensPendentes[indexItem]);
+      itemAAdicionar.tempo = arredondarTempo($scope.cadastro.itensPendentes[indexItem].tempo);
+      itemAAdicionar.tempoFormatado = formataTempo(itemAAdicionar.tempo);
       removerItemPendente(indexItem);
+      addItemRegistrado(itemAAdicionar);
     }
 
     function removerItemRegistrado() {
