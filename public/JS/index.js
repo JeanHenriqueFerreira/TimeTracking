@@ -308,7 +308,7 @@ myTimeTracking.controller('MainCtr', ['$scope', '$interval', '$http', '$cookies'
     function removerAllPendentes() {
       for (var i = 0; i < $scope.cadastro.itensPendentes.length; i++) {
         $scope.cadastro.faltanteParaHoras.tempo += $scope.cadastro.itensPendentes[i].tempo;
-        $scope.cadastro.totalRegistrado.tempo -= $scope.cadastro.itensPendentes[i].tempo;
+        $scope.cadastro.totalDeTempo.tempo -= $scope.cadastro.itensPendentes[i].tempo;
       }
       $scope.cadastro.itensPendentes = [];
       $scope.cadastro.itemEmContagem = -1;
@@ -317,8 +317,7 @@ myTimeTracking.controller('MainCtr', ['$scope', '$interval', '$http', '$cookies'
       $scope.cadastro.totalPendentes.tempo = 0;
       $scope.cadastro.totalPendentes.tempoFormatado = "00:00:00";
       $scope.cadastro.faltanteParaHoras.tempoFormatado = formataTempo($scope.cadastro.faltanteParaHoras.tempo);
-      $scope.cadastro.totalRegistrado.tempoFormatado = formataTempo($scope.cadastro.totalRegistrado.tempo);
-      $scope.cadastro.totalRegistrado.tempoFormatado = formataTempo($scope.cadastro.totalRegistrado.tempo);
+      $scope.cadastro.totalDeTempo.tempoFormatado = formataTempo($scope.cadastro.totalDeTempo.tempo);
     };
 
     function removerAllRegistrados() {
