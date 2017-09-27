@@ -332,6 +332,7 @@ myTimeTracking.controller('MainCtr', ['$scope', '$interval', '$http', '$cookies'
       $scope.cadastro.totalRegistrado.tempoFormatado = "00:00:00";
       $scope.cadastro.faltanteParaHoras.tempoFormatado = formataTempo($scope.cadastro.faltanteParaHoras.tempo);
       $scope.cadastro.totalRegistrado.tempoFormatado = formataTempo($scope.cadastro.totalRegistrado.tempo);
+      $scope.cadastro.totalDeTempo.tempoFormatado = formataTempo($scope.cadastro.totalDeTempo.tempo);
     }
 
     function editarItemPendente(indexItem) {
