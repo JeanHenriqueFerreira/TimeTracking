@@ -9,6 +9,7 @@ table.tr.td.tr-90 {
 
 table {
   width: 100%;
+  margin: 6px;
 }
 
 table input {
