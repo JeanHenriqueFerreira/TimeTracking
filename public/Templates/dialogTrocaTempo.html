@@ -21,9 +21,9 @@
     </tbody>
   </table>
   <div>
-    <input type="checkbox" id="checkTransferirTudo" ng-model="transferencia.transferirTudo" ng-true-value="true" ng-false-value="false">
-    <label for="checkTransferirTudo">Transferir todo o tempo</label><br/>
-    <input ng-hide="transferencia.transferirTudo" type="text" ng-model="transferencia.tempoATransferir" /><br/>
-    <button ng-click="realizarTransferenciaDeTempo()"> Transferir </button>
+    <input class="float-left" type="checkbox" id="checkTransferirTudo" ng-model="transferencia.transferirTudo" ng-true-value="true" ng-false-value="false">
+    <label class="float-left" for="checkTransferirTudo">Transferir todo o tempo</label><br/>
+    <input class="float-left" ng-hide="transferencia.transferirTudo" type="text" ng-model="transferencia.tempoATransferir" />
+    <button class="float-right" ng-click="realizarTransferenciaDeTempo()"> Transferir </button>
   </div>
 </div>
