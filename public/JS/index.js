@@ -20,6 +20,12 @@ myTimeTracking.controller('MainCtr', ['$scope', '$interval', '$http', '$cookies'
     function init() {
       var vCadastroAndigo;
       $scope.indexOrigem = [];
+
+      $scope.transferencia = {
+        transferirTudo: false,
+        tempoATransferir: "00:00:00"
+      };
+
       $scope.cadastro = {
         quantidadeHoras: 8,
         timer: undefined,
@@ -67,6 +73,7 @@ myTimeTracking.controller('MainCtr', ['$scope', '$interval', '$http', '$cookies'
       $scope.editarTempoItemPendente = editarTempoItemPendente;
       $scope.salvarTempoEditado = salvarTempoEditado;
       $scope.abrirDialogTrocaTempo = abrirDialogTrocaTempo;
+      $scope.realizarTransferenciaDeTempo = realizarTransferenciaDeTempo;
 
       vCadastroAndigo = $cookies.get("cadastroTimeTracking");
       if (vCadastroAndigo) {
@@ -91,7 +98,7 @@ myTimeTracking.controller('MainCtr', ['$scope', '$interval', '$http', '$cookies'
       });
     }
 
-    function realizarTrocaDeTempo() {
+    function realizarTransferenciaDeTempo() {
 
     }
 
