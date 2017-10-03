@@ -1,4 +1,4 @@
-<div>
+<div ng-if="cadastro.itensPendentes && cadastro.itensPendentes.length > 2">
   <p>Tempo disponível para transferir: {{cadastro.itensPendentes[indexOrigem].tempoFormatado}}</p>
   <table>
     <thead>
@@ -20,11 +20,12 @@
       </tr>
     </tbody>
   </table>
+  <div>
+    <input type="checkbox" id="checkTransferirTudo" ng-model="transferirTudo">
+    <label for="checkTransferirTudo">Transferir todo o tempo</label><br/>
 
-  <input type="checkbox" id="checkTransferirTudo" ng-model="transferirTudo">
-  <label for="checkTransferirTudo">Transferir todo o tempo</label><br/>
+    <input type="text" ng-model="tempoATransferir" /><br/>
 
-  <input type="text" ng-model="tempoATransferir" /><br/>
-
-  <button ng-click="realizarTransferencia"> Transferir </button>
+    <button ng-click="realizarTransferencia"> Transferir </button>
+  </div>
 </div>
