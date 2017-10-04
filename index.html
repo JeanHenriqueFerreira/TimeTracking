@@ -76,7 +76,7 @@
               <i class="material-icons" ng-click="removerItemPendente($index)" title="Remover item pendente">delete</i>
               <i class="material-icons" ng-click="editarTempoItemPendente($index)" title="Alterar tempo" ng-hide="item.editandoTempo">timer_off</i>
               <i class="material-icons" ng-click="salvarTempoEditado($index)" title="Alterar tempo" ng-show="item.editandoTempo">timer</i>
-              <i class="material-icons" ng-show="cadastro.itensPendentes && cadastro.itensPendentes.length > 1" ng-click="abrirDialogTrocaTempo($index)" title="Atribuir tempo em outro item">compare_arrows</i>
+              <i class="material-icons" ng-show="cadastro.itensPendentes && cadastro.itensPendentes.length > 1 && item.tempo>0" ng-click="abrirDialogTrocaTempo($index)" title="Atribuir tempo em outro item">compare_arrows</i>
               <i class="material-icons" title="Enviar para registrados" ng-click="enviarPendenteParaRegistrado($index)">send</i>
             </td>
           </tr>
