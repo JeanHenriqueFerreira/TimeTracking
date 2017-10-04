@@ -105,17 +105,36 @@ myTimeTracking.controller('MainCtr', ['$scope', '$interval', '$http', '$cookies'
     }
 
     function realizarTransferenciaDeTempo() {
+      var tempo;
       if ($scope.indexDestino === -1) {
         return;
       }
 
       if ($scope.transferencia.transferirTudo) {
-        $scope.cadastro.itensPendentes[$scope.indexDestino].tempo += $scope.cadastro.itensPendentes[$scope.indexOrigem].tempo;
-        $scope.cadastro.itensPendentes[$scope.indexDestino].tempoFormatado = formataTempo($scope.cadastro.itensPendentes[$scope.indexDestino].tempo);
+        tempo = $scope.cadastro.itensPendentes[$scope.indexOrigem].tempo;
+      } else {
+        tempo = converterFormatadoParaSegundos($scope.transferencia.tempoATransferir);
+        if (tempo === -1 || tempo > $scope.cadastro.itensPendentes[$scope.indexOrigem].tempo) {
+          return;
+        }
+      }
+
+      $scope.cadastro.itensPendentes[$scope.indexDestino].tempo += tempo;
+
+      if (tempo === $scope.cadastro.itensPendentes[$scope.indexOrigem].tempo) {
+        $scope.totalDeTempo.tempo += tempo;
+        $scope.faltanteParaHoras -= tempo;
+        $scope.totalPendentes += tempo;
+        $scope.totalDeTempo.tempoFormatado = formataTempo($scope.totalDeTempo.tempo);
+        $scope.faltanteParaHoras.tempoFormatado = formataTempo($scope.faltanteParaHoras.tempo);
+        $scope.totalPendentes.tempoFormatado = formataTempo($scope.totalPendentes.tempo);
         removerItemPendente($scope.indexOrigem);
       } else {
-
+        $scope.cadastro.itensPendentes[$scope.indexOrigem].tempo -= tempo;
+        $scope.cadastro.itensPendentes[$scope.indexOrigem].tempoFormatado = formataTempo($scope.cadastro.itensPendentes[$scope.indexOrigem].tempo);
       }
+      $scope.cadastro.itensPendentes[$scope.indexDestino].tempoFormatado = formataTempo($scope.cadastro.itensPendentes[$scope.indexDestino].tempo);
+
       $scope.indexOrigem = -1;
       $scope.indexDestino = -1
       ngDialog.close();
