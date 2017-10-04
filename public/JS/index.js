@@ -116,6 +116,8 @@ myTimeTracking.controller('MainCtr', ['$scope', '$interval', '$http', '$cookies'
       } else {
 
       }
+      $scope.indexOrigem = -1;
+      $scope.indexDestino = -1
       ngDialog.close();
     }
 
