@@ -140,6 +140,7 @@ myTimeTracking.controller('MainCtr', ['$scope', '$interval', '$http', '$cookies'
         $scope.cadastro.itensPendentes[$scope.indexOrigem].tempo -= tempo;
         $scope.cadastro.itensPendentes[$scope.indexOrigem].tempoFormatado = formataTempo($scope.cadastro.itensPendentes[$scope.indexOrigem].tempo);
       }
+      $scope.cadastro.itensPendentes[$scope.indexDestino].tempo += tempo;
       $scope.cadastro.itensPendentes[$scope.indexDestino].tempoFormatado = formataTempo($scope.cadastro.itensPendentes[$scope.indexDestino].tempo);
 
       $scope.indexOrigem = -1;
