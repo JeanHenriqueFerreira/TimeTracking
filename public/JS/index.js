@@ -127,11 +127,11 @@ myTimeTracking.controller('MainCtr', ['$scope', '$interval', '$http', '$cookies'
 
       if (tempo === $scope.cadastro.itensPendentes[$scope.indexOrigem].tempo) {
         $scope.cadastro.totalDeTempo.tempo += tempo;
-        $scope.cadastro.faltanteParaHoras -= tempo;
-        $scope.cadastro.totalPendentes += tempo;
-        $scope.cadastro.totalDeTempo.tempoFormatado = formataTempo($scope.totalDeTempo.tempo);
-        $scope.cadastro.faltanteParaHoras.tempoFormatado = formataTempo($scope.faltanteParaHoras.tempo);
-        $scope.cadastro.totalPendentes.tempoFormatado = formataTempo($scope.totalPendentes.tempo);
+        $scope.cadastro.faltanteParaHoras.tempo -= tempo;
+        $scope.cadastro.totalPendentes.tempo += tempo;
+        $scope.cadastro.totalDeTempo.tempoFormatado = formataTempo($scope.cadastro.totalDeTempo.tempo);
+        $scope.cadastro.faltanteParaHoras.tempoFormatado = formataTempo($scope.cadastro.faltanteParaHoras.tempo);
+        $scope.cadastro.totalPendentes.tempoFormatado = formataTempo($scope.cadastro.totalPendentes.tempo);
         removerItemPendente($scope.indexOrigem);
       } else {
         $scope.cadastro.itensPendentes[$scope.indexOrigem].tempo -= tempo;
