@@ -91,6 +91,7 @@ myTimeTracking.controller('MainCtr', ['$scope', '$interval', '$http', '$cookies'
 
     function abrirDialogTrocaTempo(indexItem) {
       $scope.indexOrigem = indexItem;
+      $scope.indexDestino = -1;
       ngDialog.open({
         templateUrl: './public/Templates/dialogTrocaTempo.html',
         className: 'ngdialog-theme-plain',
@@ -99,7 +100,16 @@ myTimeTracking.controller('MainCtr', ['$scope', '$interval', '$http', '$cookies'
     }
 
     function realizarTransferenciaDeTempo() {
+      if ($scope.indexDestino !== -1) {
+        return;
+      }
 
+      if ($scope.transferencia.transferirTudo) {
+        $scope.cadastro.itensPendentes[$scope.indexDestino].tempo += $scope.cadastro.itensPendentes[$scope.indexOrigem].tempo;
+        removerItemPendente(indexOrigem);
+      } else {
+
+      }
     }
 
     function salvarCookies(valor, objeto) {
