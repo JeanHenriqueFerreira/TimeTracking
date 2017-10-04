@@ -74,6 +74,7 @@ myTimeTracking.controller('MainCtr', ['$scope', '$interval', '$http', '$cookies'
       $scope.salvarTempoEditado = salvarTempoEditado;
       $scope.abrirDialogTrocaTempo = abrirDialogTrocaTempo;
       $scope.realizarTransferenciaDeTempo = realizarTransferenciaDeTempo;
+      $scope.selecionarItemATransferir = selecionarItemATransferir;
 
       vCadastroAndigo = $cookies.get("cadastroTimeTracking");
       if (vCadastroAndigo) {
@@ -97,6 +98,10 @@ myTimeTracking.controller('MainCtr', ['$scope', '$interval', '$http', '$cookies'
         className: 'ngdialog-theme-plain',
         scope: $scope
       });
+    }
+
+    function selecionarItemATransferir(index) {
+      $scope.indexDestino = index;
     }
 
     function realizarTransferenciaDeTempo() {
