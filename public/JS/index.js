@@ -110,7 +110,7 @@ myTimeTracking.controller('MainCtr', ['$scope', '$interval', '$http', '$cookies'
 
     function realizarTransferenciaDeTempo() {
       var tempo;
-      if ($scope.indexDestino === -1) {
+      if ($scope.indexDestino === -1 || $scope.indexOrigem === -1) {
         return;
       }
 
@@ -126,6 +126,9 @@ myTimeTracking.controller('MainCtr', ['$scope', '$interval', '$http', '$cookies'
       $scope.cadastro.itensPendentes[$scope.indexDestino].tempo += tempo;
 
       if (tempo === $scope.cadastro.itensPendentes[$scope.indexOrigem].tempo) {
+        if ($scope.indexOrigem === $scope.cadastro.itemEmContagem) {
+          pausarContador();
+        }
         $scope.cadastro.totalDeTempo.tempo += tempo;
         $scope.cadastro.faltanteParaHoras.tempo -= tempo;
         $scope.cadastro.totalPendentes.tempo += tempo;
