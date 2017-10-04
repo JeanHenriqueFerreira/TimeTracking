@@ -101,7 +101,11 @@ myTimeTracking.controller('MainCtr', ['$scope', '$interval', '$http', '$cookies'
     }
 
     function selecionarItemATransferir(index) {
-      $scope.indexDestino = index;
+      if ($scope.indexDestino === index) {
+        $scope.indexDestino = -1;
+      } else {
+        $scope.indexDestino = index;
+      }
     }
 
     function realizarTransferenciaDeTempo() {
