@@ -124,7 +124,7 @@ myTimeTracking.controller('MainCtr', ['$scope', '$interval', '$http', '$cookies'
       }
 
       $scope.cadastro.itensPendentes[$scope.indexDestino].tempo += tempo;
-
+      $scope.cadastro.itensPendentes[$scope.indexDestino].tempoFormatado = formataTempo($scope.cadastro.itensPendentes[$scope.indexDestino].tempo);
       if (tempo === $scope.cadastro.itensPendentes[$scope.indexOrigem].tempo) {
         if ($scope.indexOrigem === $scope.cadastro.itemEmContagem) {
           pausarContador();
@@ -140,8 +140,6 @@ myTimeTracking.controller('MainCtr', ['$scope', '$interval', '$http', '$cookies'
         $scope.cadastro.itensPendentes[$scope.indexOrigem].tempo -= tempo;
         $scope.cadastro.itensPendentes[$scope.indexOrigem].tempoFormatado = formataTempo($scope.cadastro.itensPendentes[$scope.indexOrigem].tempo);
       }
-      $scope.cadastro.itensPendentes[$scope.indexDestino].tempo += tempo;
-      $scope.cadastro.itensPendentes[$scope.indexDestino].tempoFormatado = formataTempo($scope.cadastro.itensPendentes[$scope.indexDestino].tempo);
 
       $scope.indexOrigem = -1;
       $scope.indexDestino = -1
