@@ -105,7 +105,7 @@ myTimeTracking.controller('MainCtr', ['$scope', '$interval', '$http', '$cookies'
     }
 
     function realizarTransferenciaDeTempo() {
-      if ($scope.indexDestino !== -1) {
+      if ($scope.indexDestino === -1) {
         return;
       }
 
@@ -115,6 +115,7 @@ myTimeTracking.controller('MainCtr', ['$scope', '$interval', '$http', '$cookies'
       } else {
 
       }
+      ngDialog.close();
     }
 
     function salvarCookies(valor, objeto) {
