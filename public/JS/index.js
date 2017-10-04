@@ -112,7 +112,7 @@ myTimeTracking.controller('MainCtr', ['$scope', '$interval', '$http', '$cookies'
       if ($scope.transferencia.transferirTudo) {
         $scope.cadastro.itensPendentes[$scope.indexDestino].tempo += $scope.cadastro.itensPendentes[$scope.indexOrigem].tempo;
         $scope.cadastro.itensPendentes[$scope.indexDestino].tempoFormatado = formataTempo($scope.cadastro.itensPendentes[$scope.indexDestino].tempo);
-        removerItemPendente(indexOrigem);
+        removerItemPendente($scope.indexOrigem);
       } else {
 
       }
