@@ -12,7 +12,7 @@
     </thead>
     <tbody>
       <tr ng-repeat="item in cadastro.itensPendentes" ng-if="$index !== indexOrigem" ng-click="indexDestino = $index">
-        <td><input type="checkbox" ng-checked="$index === indexDestino" disabled> Selecionado</td>
+        <td><input type="checkbox" ng-checked="$index === indexDestino" disabled></td>
         <td>{{item.tempoFormatado}}</td>
         <td>{{item.prot_codigo}}</td>
         <td>{{item.trf_codigo}}</td>
