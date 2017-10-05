@@ -82,6 +82,7 @@ myTimeTracking.controller('MainCtr', ['$scope', '$interval', '$http', '$cookies'
       do {
         vCadastroTemporario = $cookies.get("cadastroTimeTracking" + contador);
         vCadastroAndigo += (vCadastroTemporario || "");
+        contador++;
       } while (vCadastroTemporario);
 
       if (vCadastroAndigo) {
