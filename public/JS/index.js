@@ -92,7 +92,7 @@ myTimeTracking.controller('MainCtr', ['$scope', '$interval', '$http', 'ngDialog'
       }
 
       if (vCadastroAndigo) {
-        $scope.cadastro = JSON.parse(JSON.parse(vCadastroAndigo));
+        $scope.cadastro = JSON.parse(vCadastroAndigo);
         salvarTodos();
         pausarContador();
         destruirInterval();
