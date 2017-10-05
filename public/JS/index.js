@@ -81,12 +81,6 @@ myTimeTracking.controller('MainCtr', ['$scope', '$interval', '$http', 'ngDialog'
       $scope.selecionarItemATransferir = selecionarItemATransferir;
 
       vCadastroAndigo = "";
-      /*contador = 0;
-      do {
-        vCadastroTemporario = $cookies.get("cadastroTimeTracking" + contador);
-        vCadastroAndigo += (vCadastroTemporario || "");
-        contador++;
-      } while (vCadastroTemporario);*/
       if (localStorageService.isSupported) {
         vCadastroAndigo = localStorageService.get("cadastroTimeTracking");
       }
@@ -169,11 +163,6 @@ myTimeTracking.controller('MainCtr', ['$scope', '$interval', '$http', 'ngDialog'
         return value;
       });
 
-      /*do {
-        $cookies.putObject(valor + "" + contador, stringCookie.substring(0, 500));
-        contador++;
-        stringCookie = stringCookie.substring(500);
-      } while (stringCookie.length > 0)*/
       if (localStorageService.isSupported) {
         localStorageService.set(valor, stringCookie);
       }
