@@ -15,11 +15,10 @@ myTimeTracking.config(["$stateProvider", "$urlRouterProvider", "$httpProvider",
 
 myTimeTracking.controller('MainCtr', ['$scope', '$interval', '$http', '$cookies', 'ngDialog',
   function($scope, $interval, $http, $cookies, ngDialog) {
-    var contadorGlobal,
-      contador;
+    var contadorGlobal;
 
     function init() {
-      var vCadastroAndigo, vCadastroTemporario;
+      var vCadastroAndigo, vCadastroTemporario, contador;
       $scope.indexOrigem = [];
 
       $scope.transferencia = {
