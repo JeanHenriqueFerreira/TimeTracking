@@ -1,7 +1,7 @@
-var myTimeTracking = angular.module('myTimeTracking', ['ngCookies', 'ngDialog', 'ui.router']);
+var myTimeTracking = angular.module('myTimeTracking', ['ngCookies', 'ngDialog', 'ui.router', 'LocalStorageModule']);
 
-myTimeTracking.config(["$stateProvider", "$urlRouterProvider", "$httpProvider",
-  function($stateProvider, $urlRouterProvider, $httpProvider) {
+myTimeTracking.config(["$stateProvider", "$urlRouterProvider", "$httpProvider", "localStorageServiceProvider",
+  function($stateProvider, $urlRouterProvider, $httpProvider, localStorageServiceProvider) {
     //evitar cache no ie
     $httpProvider.defaults.cache = false;
 
@@ -10,11 +10,15 @@ myTimeTracking.config(["$stateProvider", "$urlRouterProvider", "$httpProvider",
     }
     // disable IE ajax request caching
     $httpProvider.defaults.headers.get['If-Modified-Since'] = '0';
+
+    localStorageServiceProvider.setPrefix('myTimeTracking');
+    localStorageServiceProvider.setStorageType('sessionStorage');
+    localStorageServiceProvider.setDefaultToCookie(false);
   }
 ]);
 
-myTimeTracking.controller('MainCtr', ['$scope', '$interval', '$http', '$cookies', 'ngDialog',
-  function($scope, $interval, $http, $cookies, ngDialog) {
+myTimeTracking.controller('MainCtr', ['$scope', '$interval', '$http', '$cookies', 'ngDialog', 'localStorageService',
+  function($scope, $interval, $http, $cookies, ngDialog, localStorageService) {
     var contadorGlobal;
 
     function init() {
@@ -77,12 +81,15 @@ myTimeTracking.controller('MainCtr', ['$scope', '$interval', '$http', '$cookies'
       $scope.selecionarItemATransferir = selecionarItemATransferir;
 
       vCadastroAndigo = "";
-      contador = 0;
+      /*contador = 0;
       do {
         vCadastroTemporario = $cookies.get("cadastroTimeTracking" + contador);
         vCadastroAndigo += (vCadastroTemporario || "");
         contador++;
-      } while (vCadastroTemporario);
+      } while (vCadastroTemporario);*/
+      if (localStorageService.isSupported) {
+        vCadastroAndigo = localStorageService.get("cadastroTimeTracking");
+      }
 
       if (vCadastroAndigo) {
         $scope.cadastro = JSON.parse(JSON.parse(vCadastroAndigo));
@@ -162,11 +169,14 @@ myTimeTracking.controller('MainCtr', ['$scope', '$interval', '$http', '$cookies'
         return value;
       });
 
-      do {
+      /*do {
         $cookies.putObject(valor + "" + contador, stringCookie.substring(0, 500));
         contador++;
         stringCookie = stringCookie.substring(500);
-      } while (stringCookie.length > 0)
+      } while (stringCookie.length > 0)*/
+      if (localStorageService.isSupported) {
+        localStorageService.set(valor, stringCookie);
+      }
 
     }
 
