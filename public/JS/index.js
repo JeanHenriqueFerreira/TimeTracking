@@ -166,7 +166,7 @@ myTimeTracking.controller('MainCtr', ['$scope', '$interval', '$http', '$cookies'
         $cookies.putObject(valor + "" + contador, stringCookie.substring(0, 4000));
         contador++;
         stringCookie = stringCookie.substring(4000);
-      } while (stringCookie.length < 4)
+      } while (stringCookie.length < 4000)
 
     }
 
