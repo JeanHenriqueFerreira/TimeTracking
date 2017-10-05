@@ -15,10 +15,11 @@ myTimeTracking.config(["$stateProvider", "$urlRouterProvider", "$httpProvider",
 
 myTimeTracking.controller('MainCtr', ['$scope', '$interval', '$http', '$cookies', 'ngDialog',
   function($scope, $interval, $http, $cookies, ngDialog) {
-    var contadorGlobal;
+    var contadorGlobal,
+      contador;
 
     function init() {
-      var vCadastroAndigo;
+      var vCadastroAndigo, vCadastroTemporario;
       $scope.indexOrigem = [];
 
       $scope.transferencia = {
@@ -76,7 +77,13 @@ myTimeTracking.controller('MainCtr', ['$scope', '$interval', '$http', '$cookies'
       $scope.realizarTransferenciaDeTempo = realizarTransferenciaDeTempo;
       $scope.selecionarItemATransferir = selecionarItemATransferir;
 
-      vCadastroAndigo = $cookies.get("cadastroTimeTracking");
+      vCadastroAndigo = "";
+      contador = 0;
+      do {
+        vCadastroAndigo += (vCadastroTemporario || "");
+        vCadastroTemporario = $cookies.get("cadastroTimeTracking" + contador);
+      } while (vCadastroTemporario);
+
       if (vCadastroAndigo) {
         $scope.cadastro = JSON.parse(JSON.parse(vCadastroAndigo));
         salvarTodos();
@@ -147,12 +154,20 @@ myTimeTracking.controller('MainCtr', ['$scope', '$interval', '$http', '$cookies'
     }
 
     function salvarCookies(valor, objeto) {
-      $cookies.putObject(valor, JSON.stringify(objeto, function(key, value) {
+      var contador = 0;
+      var stringCookie = JSON.stringify(objeto, function(key, value) {
         if (key === "$$hashKey")
           return undefined;
 
         return value;
-      }));
+      });
+
+      do {
+        $cookies.putObject(valor + "" + contador, stringCookie.substring(0, 4000));
+        contador++;
+        stringCookie = stringCookie.substring(4000);
+      } while (stringCookie.length < 4)
+
     }
 
     function keyPress(event, indexItem) {
