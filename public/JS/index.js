@@ -17,8 +17,8 @@ myTimeTracking.config(["$stateProvider", "$urlRouterProvider", "$httpProvider", 
   }
 ]);
 
-myTimeTracking.controller('MainCtr', ['$scope', '$interval', '$http', '$cookies', 'ngDialog', 'localStorageService',
-  function($scope, $interval, $http, $cookies, ngDialog, localStorageService) {
+myTimeTracking.controller('MainCtr', ['$scope', '$interval', '$http', 'ngDialog', 'localStorageService',
+  function($scope, $interval, $http, ngDialog, localStorageService) {
     var contadorGlobal;
 
     function init() {
