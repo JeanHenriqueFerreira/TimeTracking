@@ -13,7 +13,7 @@ myTimeTracking.config(["$stateProvider", "$urlRouterProvider", "$httpProvider", 
 
     localStorageServiceProvider.setPrefix('myTimeTracking');
     localStorageServiceProvider.setStorageType('sessionStorage');
-    localStorageServiceProvider.setDefaultToCookie(false);
+    localStorageServiceProvider.setDefaultToCookie(true);
   }
 ]);
 
