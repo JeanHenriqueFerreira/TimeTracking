@@ -295,7 +295,7 @@ myTimeTracking.controller('MainCtr', ['$scope', '$interval', '$http', 'ngDialog'
 
         if ($scope.cadastro.itemEmContagem !== -1) {
           dataAtual = new Date();
-          if (((dataAtual.getHours() === 12 || dataAtual.getDate() === 18)) &&
+          if (((dataAtual.getHours() === 12 || dataAtual.getHours() === 18)) &&
             (dataAtual.getMinutes() === 0)) {
             pausarContador();
             ngDialog.open({
